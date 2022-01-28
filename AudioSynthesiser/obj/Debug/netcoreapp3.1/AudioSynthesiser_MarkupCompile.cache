@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 D:\Documents\Repos\Practice\WPF\AudioSynthesiser\AudioSynthesiser\App.xaml
-11151548125
+5218635023
 
-8-164369695
-205-1713311329
-MainWindow.xaml;
+17769663587
+206-1902319901
+View\Controls\FilterControl.xaml;View\Controls\FrequencyControl.xaml;View\Controls\NumberSliderControl.xaml;View\Controls\OscillatorControl.xaml;View\MainWindow.xaml;
 
 False
 

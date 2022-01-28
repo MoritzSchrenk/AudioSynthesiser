@@ -1,10 +1,9 @@
-﻿using AudioSynthesiser.ViewModel;
+﻿using AudioSynthesiser.Model;
 using NAudio.Dsp;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
-using System;
 
-namespace AudioSynthesiser.Model
+namespace AudioSynthesiser.ViewModel
 {
     internal class Synthesiser
     {
@@ -53,8 +52,15 @@ namespace AudioSynthesiser.Model
                 sg = filteredsg;
             }
 
+            var waveProvider = new SampleToWaveProvider(sg);
+
+
+            //var renderer = new WaveFormRenderer();
+
+            //renderer.Render(waveProvider, null);
+
             wo = new WaveOutEvent();
-            wo.Init(sg);
+            wo.Init(waveProvider);
             wo.Play();
         }
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AudioSynthesiser.ViewModel
+﻿namespace AudioSynthesiser.Model
 {
     public class Filter
     {
@@ -17,14 +13,5 @@ namespace AudioSynthesiser.ViewModel
             Q = q;
             Frequency = frequency;
         }
-    }
-
-    public enum FilterType
-    {
-        Off,
-        LowPass,
-        HighPass,
-        BandPass,
-        Notch
     }
 }

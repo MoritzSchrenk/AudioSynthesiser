@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="AudioSynthesiser.View.Controls.OscillatorControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:uc="clr-namespace:AudioSynthesiser.View.Controls"
+             xmlns:vm="clr-namespace:AudioSynthesiser.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="500">
+    <UserControl.Resources>
+        <vm:OscillatorViewModel x:Key="vm"/>
+    </UserControl.Resources>
+    <StackPanel Orientation="Horizontal" Background="AliceBlue" DataContext="{StaticResource vm}">
+        <StackPanel Grid.Row="0" Margin="5">
+            <Label FontWeight="Bold">Oscillator</Label>
+            <Label>Waveform</Label>
+            <RadioButton x:Name="SineWave" GroupName="waveform" IsChecked="true">Sine</RadioButton>
+            <RadioButton x:Name="SawtoothWave" GroupName="waveform">Sawtooth</RadioButton>
+            <RadioButton x:Name="TriangleWave" GroupName="waveform">Triangle</RadioButton>
+            <RadioButton x:Name="SquareWave" GroupName="waveform">Square</RadioButton>
+        </StackPanel>
+        <uc:FrequencyControl HorizontalAlignment="Left"
+                Margin="15,0,0,0" Height="90" Frequency="{Binding Oscillator.Frequency}"/>
+    </StackPanel>
+</UserControl>

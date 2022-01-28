@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="AudioSynthesiser.View.Controls.FilterControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:uc="clr-namespace:AudioSynthesiser.View.Controls"
+             xmlns:vm="clr-namespace:AudioSynthesiser.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="500">
+    <UserControl.Resources>
+        <vm:FilterViewModel x:Key="vm"/>
+    </UserControl.Resources>
+    <StackPanel Orientation="Horizontal" Background="AliceBlue" DataContext="{StaticResource vm}">
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="5">
+            <Label FontWeight="Bold">Filter</Label>
+            <Label Margin="0,5,0,0">Type</Label>
+            <RadioButton x:Name="NoFilter" GroupName="filters" IsChecked="true">Off</RadioButton>
+            <RadioButton x:Name="LowPassFilter" GroupName="filters">Low Pass</RadioButton>
+            <RadioButton x:Name="HighPassFilter" GroupName="filters">High Pass</RadioButton>
+            <RadioButton x:Name="BandPassFilter" GroupName="filters">Band Pass</RadioButton>
+            <RadioButton x:Name="NotchFilter" GroupName="filters">Notch</RadioButton>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <uc:FrequencyControl Margin="15,0,0,0"  HorizontalAlignment="Left" Frequency="{Binding Filter.Frequency}"/>
+            <uc:NumberSliderControl Margin="15,0,0,0"  HorizontalAlignment="Left" Value="{Binding Filter.Q}"/>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

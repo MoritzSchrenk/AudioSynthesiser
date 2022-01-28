@@ -1,7 +1,7 @@
 ﻿using NAudio.Dsp;
 using NAudio.Wave;
 
-namespace AudioSynthesiser.Model
+namespace AudioSynthesiser.ViewModel
 {
     public class FilterProvider : ISampleProvider
     {
@@ -29,6 +29,7 @@ namespace AudioSynthesiser.Model
             {
                 buffer[offset + n] = filter.Transform(buffer[offset + n]);
             }
+
             return samplesRead;
         }
     }

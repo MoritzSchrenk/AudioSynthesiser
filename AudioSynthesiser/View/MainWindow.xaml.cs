@@ -6,7 +6,7 @@ using NAudio.Wave.SampleProviders;
 using System.Text.RegularExpressions;
 using AudioSynthesiser.ViewModel;
 
-namespace AudioSynthesiser
+namespace AudioSynthesiser.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -27,24 +27,24 @@ namespace AudioSynthesiser
 
         private void WaveformRadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            var button = (RadioButton)sender;
-            if (button == SineWave)
-            {
-                Synth.WaveForm = SignalGeneratorType.Sin;
-            }
-            else if (button == SawtoothWave)
-            {
-                Synth.WaveForm = SignalGeneratorType.SawTooth;
-            }
-            else if (button == TriangleWave)
-            {
-                Synth.WaveForm = SignalGeneratorType.Triangle;
-            }
-            else if (button == SquareWave)
-            {
-                Synth.WaveForm = SignalGeneratorType.Square;
-            }
-            Synth.Update();
+            //var button = (RadioButton)sender;
+            //if (button == SineWave)
+            //{
+            //    Synth.WaveForm = SignalGeneratorType.Sin;
+            //}
+            //else if (button == SawtoothWave)
+            //{
+            //    Synth.WaveForm = SignalGeneratorType.SawTooth;
+            //}
+            //else if (button == TriangleWave)
+            //{
+            //    Synth.WaveForm = SignalGeneratorType.Triangle;
+            //}
+            //else if (button == SquareWave)
+            //{
+            //    Synth.WaveForm = SignalGeneratorType.Square;
+            //}
+            //Synth.Update();
         }
 
         private void FrequencyTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -66,28 +66,28 @@ namespace AudioSynthesiser
 
         private void FilterRadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            var button = (RadioButton)sender;
-            if (button == NoFilter)
-            {
-                Synth.Filter.Type = FilterType.Off;
-            }
-            else if (button == LowPassFilter)
-            {
-                Synth.Filter.Type = FilterType.LowPass;
-            }
-            else if (button == HighPassFilter)
-            {
-                Synth.Filter.Type = FilterType.HighPass;
-            }
-            else if (button == BandPassFilter)
-            {
-                Synth.Filter.Type = FilterType.BandPass;
-            }
-            else if (button == NotchFilter)
-            {
-                Synth.Filter.Type = FilterType.Notch;
-            }
-            Synth.Update();
+            //var button = (RadioButton)sender;
+            //if (button == NoFilter)
+            //{
+            //    Synth.Filter.Type = FilterType.Off;
+            //}
+            //else if (button == LowPassFilter)
+            //{
+            //    Synth.Filter.Type = FilterType.LowPass;
+            //}
+            //else if (button == HighPassFilter)
+            //{
+            //    Synth.Filter.Type = FilterType.HighPass;
+            //}
+            //else if (button == BandPassFilter)
+            //{
+            //    Synth.Filter.Type = FilterType.BandPass;
+            //}
+            //else if (button == NotchFilter)
+            //{
+            //    Synth.Filter.Type = FilterType.Notch;
+            //}
+            //Synth.Update();
         }
 
         private void FilterqTextBox_TextChanged(object sender, TextChangedEventArgs e)

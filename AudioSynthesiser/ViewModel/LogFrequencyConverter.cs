@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace AudioSynthesiser
+namespace AudioSynthesiser.ViewModel
 {
     public class LogFrequencyConverter : IValueConverter
     {
