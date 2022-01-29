@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace AudioSynthesiser.ViewModel
+namespace AudioSynthesiser.ViewModel.Commands
 {
     public class SynthPlayCommand : ICommand
     {
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
 
         public SynthesiserViewModel VM { get; set; }
 
@@ -16,7 +20,7 @@ namespace AudioSynthesiser.ViewModel
 
         public bool CanExecute(object parameter)
         {
-            return true;
+            return parameter != null && parameter is bool ? (bool)parameter : false;
         }
 
         public void Execute(object parameter)

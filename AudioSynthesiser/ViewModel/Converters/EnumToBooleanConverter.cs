@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace AudioSynthesiser.ViewModel
+namespace AudioSynthesiser.ViewModel.Converters
 {
     public class EnumToBooleanConverter : IValueConverter
     {

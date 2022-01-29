@@ -20,12 +20,26 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <uc:OscillatorControl Grid.Row="0" Label="Oscillator" OscFreq="{Binding BaseFreq, Mode=TwoWay}" WaveForm="{Binding WaveForm, Mode=TwoWay}" Amplitude="{Binding Gain, Mode=TwoWay}"/>
-        <uc:FilterControl Grid.Row="1" CutoffFreq="{Binding FilterFreq, Mode=TwoWay}" QValue="{Binding FilterQ, Mode=TwoWay}" Type="{Binding FilterType, Mode=TwoWay}"/>
-        <uc:OscillatorControl Grid.Row="0" Label="LFO" Grid.Column="1" OscFreq="{Binding LfoFreq, Mode=TwoWay}" WaveForm="{Binding LfoWaveForm, Mode=TwoWay}" Amplitude="{Binding LfoAmplitude, Mode=TwoWay}"/>
+        <uc:OscillatorControl Grid.Row="0" Label="Oscillator"
+                              OscFreq="{Binding BaseFreq, Mode=TwoWay}"
+                              WaveForm="{Binding WaveForm, Mode=TwoWay}"
+                              Amplitude="{Binding Gain, Mode=TwoWay}"
+                              Enabled="{Binding OscOn, Mode=TwoWay}"
+                              MaxFrequency="140"/>
+        <uc:FilterControl Grid.Row="1"
+                          CutoffFreq="{Binding FilterFreq, Mode=TwoWay}"
+                          QValue="{Binding FilterQ, Mode=TwoWay}"
+                          Type="{Binding FilterType, Mode=TwoWay}"
+                          Enabled="{Binding FilterOn, Mode=TwoWay}"/>
+        <uc:OscillatorControl Grid.Row="0" Label="LFO" Grid.Column="1"
+                              OscFreq="{Binding LfoFreq, Mode=TwoWay}"
+                              WaveForm="{Binding LfoWaveForm, Mode=TwoWay}"
+                              Amplitude="{Binding LfoAmplitude, Mode=TwoWay}"
+                              Enabled="{Binding LfoOn, Mode=TwoWay}"
+                              MaxFrequency="5"/>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <Button Content="Play" Command="{Binding PlayCommand}"/>
-            <Button Content="Stop" Command="{Binding StopCommand}"/>
+            <Button Content="Play" Command="{Binding PlayCommand}" CommandParameter="{Binding OscOn}"/>
+            <Button Content="Stop" Command="{Binding StopCommand}" CommandParameter="{Binding OscOn}"/>
         </StackPanel>
     </Grid>
 </Window>

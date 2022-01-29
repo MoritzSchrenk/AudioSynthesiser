@@ -2,9 +2,8 @@
 using NAudio.Dsp;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
-using System.Collections.Generic;
 
-namespace AudioSynthesiser.ViewModel
+namespace AudioSynthesiser.Synth
 {
     public class Synthesiser
     {
@@ -16,6 +15,12 @@ namespace AudioSynthesiser.ViewModel
         private WaveOutEvent wo;
         public void Play()
         {
+            if (!Oscillator.IsEnabled())
+            {
+                Stop();
+                return;
+            }
+
             ISampleProvider sg = new SignalGenerator()
             {
                 Gain = Oscillator.Gain,
@@ -23,7 +28,7 @@ namespace AudioSynthesiser.ViewModel
                 Type = Oscillator.Type
             };
 
-            if (Lfo.Gain != 0)
+            if (Lfo.IsEnabled())
             {
                 ISampleProvider lfoProvider = new SignalGenerator()
                 {
@@ -35,30 +40,25 @@ namespace AudioSynthesiser.ViewModel
                 sg = new LfoProvider(sg, lfoProvider);
             }
 
-            BiQuadFilter filter = null;
-            switch (Filter.Type)
+            if (Filter.IsEnabled())
             {
-                case FilterType.LowPass:
-                    filter = BiQuadFilter.LowPassFilter(sg.WaveFormat.SampleRate, Filter.Frequency, Filter.Q);
-                    break;
-                case FilterType.HighPass:
-                    filter = BiQuadFilter.HighPassFilter(sg.WaveFormat.SampleRate, Filter.Frequency, Filter.Q);
-                    break;
-                case FilterType.BandPass:
-                    filter = BiQuadFilter.BandPassFilterConstantPeakGain(sg.WaveFormat.SampleRate, Filter.Frequency, Filter.Q);
-                    break;
-                case FilterType.Notch:
-                    filter = BiQuadFilter.NotchFilter(sg.WaveFormat.SampleRate, Filter.Frequency, Filter.Q);
-                    break;
-                case FilterType.Off:
-                default:
-                    break;
-            }
-
-            if (filter != null)
-            {
-                var filteredsg = new FilterProvider(sg, filter);
-                sg = filteredsg;
+                BiQuadFilter filter = null;
+                switch (Filter.Type)
+                {
+                    case FilterType.LowPass:
+                        filter = BiQuadFilter.LowPassFilter(sg.WaveFormat.SampleRate, Filter.Frequency, Filter.Q);
+                        break;
+                    case FilterType.HighPass:
+                        filter = BiQuadFilter.HighPassFilter(sg.WaveFormat.SampleRate, Filter.Frequency, Filter.Q);
+                        break;
+                    case FilterType.BandPass:
+                        filter = BiQuadFilter.BandPassFilterConstantPeakGain(sg.WaveFormat.SampleRate, Filter.Frequency, Filter.Q);
+                        break;
+                    case FilterType.Notch:
+                        filter = BiQuadFilter.NotchFilter(sg.WaveFormat.SampleRate, Filter.Frequency, Filter.Q);
+                        break;
+                }
+                sg = new FilterProvider(sg, filter);
             }
 
             if (wo == null)

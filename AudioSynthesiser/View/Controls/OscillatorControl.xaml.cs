@@ -10,10 +10,15 @@ namespace AudioSynthesiser.View.Controls
     /// </summary>
     public partial class OscillatorControl : UserControl
     {
-        public OscillatorControl()
+        public bool Enabled
         {
-            InitializeComponent();
+            get => (bool)GetValue(EnabledProperty);
+            set => SetValue(EnabledProperty, value);
         }
+
+        // Using a DependencyProperty as the backing store for Enabled.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty EnabledProperty =
+            DependencyProperty.Register("Enabled", typeof(bool), typeof(OscillatorControl), new PropertyMetadata(false));
 
         public string Label
         {
@@ -24,6 +29,16 @@ namespace AudioSynthesiser.View.Controls
         // Using a DependencyProperty as the backing store for Label.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LabelProperty =
             DependencyProperty.Register("Label", typeof(string), typeof(OscillatorControl), new PropertyMetadata(""));
+
+        public int MaxFrequency
+        {
+            get => (int)GetValue(MaxFrequencyProperty);
+            set => SetValue(MaxFrequencyProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for MaxFrequency.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MaxFrequencyProperty =
+            DependencyProperty.Register("MaxFrequency", typeof(int), typeof(OscillatorControl), new PropertyMetadata(1));
 
         public SignalGeneratorType WaveForm
         {
@@ -54,5 +69,10 @@ namespace AudioSynthesiser.View.Controls
         // Using a DependencyProperty as the backing store for Amplitude.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AmplitudeProperty =
             DependencyProperty.Register("Amplitude", typeof(double), typeof(OscillatorControl), new PropertyMetadata(0d));
+
+        public OscillatorControl()
+        {
+            InitializeComponent();
+        }
     }
 }

@@ -2,9 +2,9 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace AudioSynthesiser.ViewModel
+namespace AudioSynthesiser.ViewModel.Converters
 {
-    public class LogFrequencyConverter : IValueConverter
+    public class LogNumberConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

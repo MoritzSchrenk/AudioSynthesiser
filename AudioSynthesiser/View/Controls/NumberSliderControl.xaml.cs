@@ -9,6 +9,16 @@ namespace AudioSynthesiser.View.Controls
     /// </summary>
     public partial class NumberSliderControl : UserControl
     {
+        public bool Enabled
+        {
+            get => (bool)GetValue(EnabledProperty);
+            set => SetValue(EnabledProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for Enabled.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty EnabledProperty =
+            DependencyProperty.Register("Enabled", typeof(bool), typeof(NumberSliderControl), new PropertyMetadata(false));
+
         public string Label
         {
             get => (string)GetValue(LabelProperty);

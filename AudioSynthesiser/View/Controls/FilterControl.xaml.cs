@@ -9,10 +9,15 @@ namespace AudioSynthesiser.View.Controls
     /// </summary>
     public partial class FilterControl : UserControl
     {
-        public FilterControl()
+        public bool Enabled
         {
-            InitializeComponent();
+            get => (bool)GetValue(EnabledProperty);
+            set => SetValue(EnabledProperty, value);
         }
+
+        // Using a DependencyProperty as the backing store for Enabled.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty EnabledProperty =
+            DependencyProperty.Register("Enabled", typeof(bool), typeof(FilterControl), new PropertyMetadata(false));
 
         public FilterType Type
         {
@@ -22,8 +27,7 @@ namespace AudioSynthesiser.View.Controls
 
         // Using a DependencyProperty as the backing store for Type.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TypeProperty =
-            DependencyProperty.Register("Type", typeof(FilterType), typeof(FilterControl), new PropertyMetadata(FilterType.Off));
-
+            DependencyProperty.Register("Type", typeof(FilterType), typeof(FilterControl), new PropertyMetadata(FilterType.LowPass));
 
         public float CutoffFreq
         {
@@ -35,7 +39,6 @@ namespace AudioSynthesiser.View.Controls
         public static readonly DependencyProperty CutoffFreqProperty =
             DependencyProperty.Register("CutoffFreq", typeof(float), typeof(FilterControl), new PropertyMetadata(0f));
 
-
         public float QValue
         {
             get { return (float)GetValue(QValueProperty); }
@@ -45,5 +48,10 @@ namespace AudioSynthesiser.View.Controls
         // Using a DependencyProperty as the backing store for QValue.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty QValueProperty =
             DependencyProperty.Register("QValue", typeof(float), typeof(FilterControl), new PropertyMetadata(0f));
+
+        public FilterControl()
+        {
+            InitializeComponent();
+        }
     }
 }

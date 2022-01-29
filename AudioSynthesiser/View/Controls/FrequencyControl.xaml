@@ -4,23 +4,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:vm="clr-namespace:AudioSynthesiser.ViewModel"
+             xmlns:cnv="clr-namespace:AudioSynthesiser.ViewModel.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="90" d:DesignWidth="320">
     <Border Background="LightGray">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Background="LightGray" Margin="10">
             <StackPanel.Resources>
-                <vm:LogFrequencyConverter x:Key="LogScaleConverter"/>
+                <cnv:QuadraticNumberConverter x:Key="QuadraticNumberConverter"/>
             </StackPanel.Resources>
             <Label>Frequency</Label>
             <DockPanel>
-                <TextBox x:Name="FreqTextBox"  Width="100" Text="{Binding ElementName=ThisFrequencyControl, Path=Frequency, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                <TextBox x:Name="FreqTextBox"  Width="100"
+                         IsEnabled="{Binding ElementName=ThisFrequencyControl, Path=Enabled}"
+                         Text="{Binding ElementName=ThisFrequencyControl, Path=Frequency, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          HorizontalAlignment="Left" TextAlignment="Right"/>
                 <Label>Hz</Label>
             </DockPanel>
-            <Slider x:Name="FreqSlider"  Width="300" Minimum="1" Maximum="10"
+            <Slider x:Name="FreqSlider"  Width="300" Minimum="1" Maximum="{Binding ElementName=ThisFrequencyControl, Path=MaxValue, Mode=TwoWay}"
                     HorizontalAlignment="Left" Margin="0,5"
-                    Value="{Binding ElementName=ThisFrequencyControl, Path=Frequency, Mode=TwoWay, Converter={StaticResource LogScaleConverter}}"/>
+                    IsEnabled="{Binding ElementName=ThisFrequencyControl, Path=Enabled}"
+                    Value="{Binding ElementName=ThisFrequencyControl, Path=Frequency, Mode=TwoWay, Converter={StaticResource QuadraticNumberConverter}}"/>
         </StackPanel>
     </Border>
 </UserControl>

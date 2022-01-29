@@ -1,6 +1,6 @@
 ﻿using NAudio.Wave;
 
-namespace AudioSynthesiser.ViewModel
+namespace AudioSynthesiser.Synth
 {
     public class LfoProvider : ISampleProvider
     {

@@ -1,47 +1,16 @@
-﻿using System.ComponentModel;
-
-namespace AudioSynthesiser.Model
+﻿namespace AudioSynthesiser.Model
 {
-    public class Filter
+    public class Filter : SynthComponent
     {
-        private float frequency;
-        private float q;
-        private FilterType type;
+        public FilterType Type { get; }
+        public float Frequency { get; }
+        public float Q { get; }
 
-        public Filter(FilterType type, float frequency, float q)
+        public Filter(FilterType type, float frequency, float q, bool enabled = false) : base(enabled)
         {
-            this.type = type;
-            this.frequency = frequency;
-            this.q = q;
-        }
-
-        public float Frequency
-        {
-            get => frequency;
-            set
-            {
-                frequency = value;
-                //OnPropertyChanged("Frequency");
-            }
-        }
-        public float Q
-        {
-            get => q;
-            set
-            {
-                q = value;
-                //OnPropertyChanged("Q");
-            }
-        }
-
-        public FilterType Type
-        {
-            get => type;
-            set
-            {
-                type = value;
-                //OnPropertyChanged("Type");
-            }
+            Type = type;
+            Frequency = frequency;
+            Q = q;
         }
     }
 }

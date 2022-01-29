@@ -1,7 +1,7 @@
 ﻿using NAudio.Dsp;
 using NAudio.Wave;
 
-namespace AudioSynthesiser.ViewModel
+namespace AudioSynthesiser.Synth
 {
     public class FilterProvider : ISampleProvider
     {

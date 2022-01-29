@@ -6,26 +6,32 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:naudio="clr-namespace:NAudio.Wave.SampleProviders;assembly=NAudio.Core"
              xmlns:uc="clr-namespace:AudioSynthesiser.View.Controls"
-             xmlns:vm="clr-namespace:AudioSynthesiser.ViewModel"
+             xmlns:cnv="clr-namespace:AudioSynthesiser.ViewModel.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="500">
     <UserControl.Resources>
-        <vm:EnumToBooleanConverter x:Key="enumToBooleanConverter"/>
+        <cnv:EnumToBooleanConverter x:Key="enumToBooleanConverter"/>
     </UserControl.Resources>
     <StackPanel Orientation="Horizontal" Background="AliceBlue">
         <StackPanel Grid.Row="0" Margin="5">
-            <Label FontWeight="Bold" Content="{Binding ElementName=ThisOscillatorControl, Path=Label}"/>
+            <StackPanel Orientation="Horizontal">
+                <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=ThisOscillatorControl, Path=Enabled}"/>
+                <Label FontWeight="Bold" Content="{Binding ElementName=ThisOscillatorControl, Path=Label}"/>
+            </StackPanel>
             <Label>Waveform</Label>
-            <RadioButton Content="Sine" IsChecked="{Binding ElementName=ThisOscillatorControl, Path=WaveForm, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static naudio:SignalGeneratorType.Sin}}"/>
-            <RadioButton Content="Sawtooth" IsChecked="{Binding ElementName=ThisOscillatorControl, Path=WaveForm, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static naudio:SignalGeneratorType.SawTooth}}"/>
-            <RadioButton Content="Triangle" IsChecked="{Binding ElementName=ThisOscillatorControl, Path=WaveForm, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static naudio:SignalGeneratorType.Triangle}}"/>
-            <RadioButton Content="Square" IsChecked="{Binding ElementName=ThisOscillatorControl, Path=WaveForm, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static naudio:SignalGeneratorType.Square}}"/>
+            <RadioButton IsEnabled="{Binding ElementName=ThisOscillatorControl, Path=Enabled}" Content="Sine" IsChecked="{Binding ElementName=ThisOscillatorControl, Path=WaveForm, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static naudio:SignalGeneratorType.Sin}}"/>
+            <RadioButton IsEnabled="{Binding ElementName=ThisOscillatorControl, Path=Enabled}" Content="Sawtooth" IsChecked="{Binding ElementName=ThisOscillatorControl, Path=WaveForm, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static naudio:SignalGeneratorType.SawTooth}}"/>
+            <RadioButton IsEnabled="{Binding ElementName=ThisOscillatorControl, Path=Enabled}" Content="Triangle" IsChecked="{Binding ElementName=ThisOscillatorControl, Path=WaveForm, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static naudio:SignalGeneratorType.Triangle}}"/>
+            <RadioButton IsEnabled="{Binding ElementName=ThisOscillatorControl, Path=Enabled}" Content="Square" IsChecked="{Binding ElementName=ThisOscillatorControl, Path=WaveForm, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static naudio:SignalGeneratorType.Square}}"/>
         </StackPanel>
         <StackPanel>
-            <uc:FrequencyControl HorizontalAlignment="Left"
-                    Margin="15,0,0,0" Height="90" Frequency="{Binding ElementName=ThisOscillatorControl, Path=OscFreq, Mode=TwoWay}"/>
-            <uc:NumberSliderControl Margin="15,0,0,0"  HorizontalAlignment="Left" Value="{Binding ElementName=ThisOscillatorControl, Path=Amplitude, Mode=TwoWay}"
-                                    Label="Amplitude" MinValue="0" MaxValue="1"/>
+            <uc:FrequencyControl HorizontalAlignment="Left" Margin="15,0,0,0" Height="90"
+                                 Enabled="{Binding ElementName=ThisOscillatorControl, Path=Enabled}"
+                                 MaxValue="{Binding ElementName=ThisOscillatorControl, Path=MaxFrequency}"
+                                 Frequency="{Binding ElementName=ThisOscillatorControl, Path=OscFreq, Mode=TwoWay}"/>
+            <uc:NumberSliderControl Margin="15,0,0,0"  HorizontalAlignment="Left" Label="Amplitude" MinValue="0" MaxValue="1"
+                                    Enabled="{Binding ElementName=ThisOscillatorControl, Path=Enabled}"
+                                    Value="{Binding ElementName=ThisOscillatorControl, Path=Amplitude, Mode=TwoWay}"/>
         </StackPanel>
     </StackPanel>
 </UserControl>

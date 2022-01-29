@@ -1,4 +1,6 @@
 ﻿using AudioSynthesiser.Model;
+using AudioSynthesiser.Synth;
+using AudioSynthesiser.ViewModel.Commands;
 using NAudio.Wave.SampleProviders;
 using System.ComponentModel;
 
@@ -10,6 +12,18 @@ namespace AudioSynthesiser.ViewModel
 
         public Synthesiser Synth { get; set; }
 
+        // Oscillator
+        private bool oscOn;
+        public bool OscOn
+        {
+            get => oscOn;
+            set
+            {
+                oscOn = value;
+                OnPropertyChanged("OscOn");
+                UpdateOscillator();
+            }
+        }
 
         private double baseFreq;
         public double BaseFreq
@@ -19,7 +33,7 @@ namespace AudioSynthesiser.ViewModel
             {
                 baseFreq = value;
                 OnPropertyChanged("BaseFreq");
-                UpdateSynth();
+                UpdateOscillator();
             }
         }
 
@@ -30,8 +44,8 @@ namespace AudioSynthesiser.ViewModel
             set
             {
                 gain = value;
-                OnPropertyChanged("Gain");UpdateSynth();
-                UpdateSynth();
+                OnPropertyChanged("Gain");
+                UpdateOscillator();
             }
         }
 
@@ -43,7 +57,20 @@ namespace AudioSynthesiser.ViewModel
             {
                 waveForm = value;
                 OnPropertyChanged("WaveForm");
-                UpdateSynth();
+                UpdateOscillator();
+            }
+        }
+
+        // Filter
+        private bool filterOn;
+        public bool FilterOn
+        {
+            get => filterOn;
+            set
+            {
+                filterOn = value;
+                OnPropertyChanged("FilterOn");
+                UpdateFilter();
             }
         }
 
@@ -55,7 +82,7 @@ namespace AudioSynthesiser.ViewModel
             {
                 filterFreq = value;
                 OnPropertyChanged("FilterFreq");
-                UpdateSynth();
+                UpdateFilter();
             }
         }
 
@@ -67,7 +94,7 @@ namespace AudioSynthesiser.ViewModel
             {
                 filterQ = value;
                 OnPropertyChanged("FilterQ");
-                UpdateSynth();
+                UpdateFilter();
             }
         }
 
@@ -79,7 +106,20 @@ namespace AudioSynthesiser.ViewModel
             {
                 filterType = value;
                 OnPropertyChanged("FilterType");
-                UpdateSynth();
+                UpdateFilter();
+            }
+        }
+
+        // LFO
+        private bool lfoOn;
+        public bool LfoOn
+        {
+            get => lfoOn;
+            set
+            {
+                lfoOn = value;
+                OnPropertyChanged("LfoOn");
+                UpdateLfo();
             }
         }
 
@@ -91,7 +131,7 @@ namespace AudioSynthesiser.ViewModel
             {
                 lfoFreq = value;
                 OnPropertyChanged("LfoFreq");
-                UpdateSynth();
+                UpdateLfo();
             }
         }
 
@@ -102,8 +142,8 @@ namespace AudioSynthesiser.ViewModel
             set
             {
                 lfoAmplitude = value;
-                OnPropertyChanged("LfoAmplitude"); UpdateSynth();
-                UpdateSynth();
+                OnPropertyChanged("LfoAmplitude");
+                UpdateLfo();
             }
         }
 
@@ -115,12 +155,11 @@ namespace AudioSynthesiser.ViewModel
             {
                 lfoWaveForm = value;
                 OnPropertyChanged("LfoWaveForm");
-                UpdateSynth();
+                UpdateLfo();
             }
         }
 
         #endregion
-
 
         public SynthPlayCommand PlayCommand { get; set; }
         public SynthStopCommand StopCommand { get; set; }
@@ -132,17 +171,24 @@ namespace AudioSynthesiser.ViewModel
 
             Synth = new Synthesiser();
 
+            OscOn = true;
             WaveForm = SignalGeneratorType.Sin;
             BaseFreq = 500;
             Gain = 0.05;
-            FilterType = FilterType.Off;
+
+            FilterOn = false;
+            FilterType = FilterType.LowPass;
             FilterFreq = 250;
             FilterQ = 1;
+
+            LfoOn = false;
             LfoWaveForm = SignalGeneratorType.Sin;
             LfoFreq = 5;
             LfoAmplitude = 0.25;
 
-            UpdateSynth();
+            UpdateOscillator();
+            UpdateFilter();
+            UpdateLfo();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -151,11 +197,19 @@ namespace AudioSynthesiser.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void UpdateSynth()
+        private void UpdateOscillator()
         {
-            Synth.Oscillator = new Oscillator(waveForm, baseFreq, gain);
-            Synth.Filter = new Filter(filterType, filterFreq, filterQ);
-            Synth.Lfo = new Oscillator(lfoWaveForm, lfoFreq, lfoAmplitude);
+            Synth.Oscillator = new Oscillator(waveForm, baseFreq, gain, oscOn);
+            Synth.Update();
+        }
+        private void UpdateFilter()
+        {
+            Synth.Filter = new Filter(filterType, filterFreq, filterQ, filterOn);
+            Synth.Update();
+        }
+        private void UpdateLfo()
+        {
+            Synth.Lfo = new Oscillator(lfoWaveForm, lfoFreq, lfoAmplitude, lfoOn);
             Synth.Update();
         }
     }
