@@ -19,8 +19,8 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <uc:OscillatorControl Grid.Row="0" OscFreq="{Binding BaseFreq, Mode=TwoWay}"/>
-        <uc:FilterControl Grid.Row="1" CutoffFreq="{Binding FilterFreq, Mode=TwoWay}" QValue="{Binding FilterQ, Mode=TwoWay}"/>
+        <uc:OscillatorControl Grid.Row="0" OscFreq="{Binding BaseFreq, Mode=TwoWay}" WaveForm="{Binding WaveForm, Mode=TwoWay}"/>
+        <uc:FilterControl Grid.Row="1" CutoffFreq="{Binding FilterFreq, Mode=TwoWay}" QValue="{Binding FilterQ, Mode=TwoWay}" Type="{Binding FilterType, Mode=TwoWay}"/>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Button Content="Play" Command="{Binding PlayCommand}"/>
             <Button Content="Stop" Command="{Binding StopCommand}"/>

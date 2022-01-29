@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using AudioSynthesiser.Model;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace AudioSynthesiser.View.Controls
@@ -12,6 +13,17 @@ namespace AudioSynthesiser.View.Controls
         {
             InitializeComponent();
         }
+
+        public FilterType Type
+        {
+            get => (FilterType)GetValue(TypeProperty);
+            set => SetValue(TypeProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for Type.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TypeProperty =
+            DependencyProperty.Register("Type", typeof(FilterType), typeof(FilterControl), new PropertyMetadata(FilterType.Off));
+
 
         public float CutoffFreq
         {

@@ -13,11 +13,6 @@ namespace AudioSynthesiser.ViewModel
         private WaveOutEvent wo;
         public void Play()
         {
-            if (wo != null)
-            {
-                Stop();
-            }
-
             ISampleProvider  sg = new SignalGenerator()
             {
                 Gain = Oscillator.Gain,
@@ -40,6 +35,7 @@ namespace AudioSynthesiser.ViewModel
                 case FilterType.Notch:
                     filter = BiQuadFilter.NotchFilter(sg.WaveFormat.SampleRate, Filter.Frequency, Filter.Q);
                     break;
+                case FilterType.Off:
                 default:
                     break;
             }
@@ -50,21 +46,17 @@ namespace AudioSynthesiser.ViewModel
                 sg = filteredsg;
             }
 
-            var waveProvider = new SampleToWaveProvider(sg);
-
-
-            //var renderer = new WaveFormRenderer();
-
-            //renderer.Render(waveProvider, null);
-
-            wo = new WaveOutEvent();
-            wo.Init(waveProvider);
+            if (wo == null)
+            {
+                wo = new WaveOutEvent();
+            }
+            wo.Init(sg);
             wo.Play();
         }
 
         public void Update()
         {
-            if(wo != null)
+            if (wo != null)
             {
                 Play();
             }

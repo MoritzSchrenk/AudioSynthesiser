@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using NAudio.Wave.SampleProviders;
+using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace AudioSynthesiser.View.Controls
@@ -12,6 +14,16 @@ namespace AudioSynthesiser.View.Controls
         {
             InitializeComponent();
         }
+
+        public SignalGeneratorType WaveForm
+        {
+            get => (SignalGeneratorType)GetValue(WaveFormProperty);
+            set => SetValue(WaveFormProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for WaveForm.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty WaveFormProperty =
+            DependencyProperty.Register("WaveForm", typeof(SignalGeneratorType), typeof(OscillatorControl), new PropertyMetadata(SignalGeneratorType.Sin));
 
         public double OscFreq
         {

@@ -97,11 +97,11 @@ namespace AudioSynthesiser.ViewModel
             Synth = new Synthesiser();
 
             WaveForm = SignalGeneratorType.Sin;
-            BaseFreq = 5000;
+            BaseFreq = 500;
             Gain = 0.05;
-            FilterType = FilterType.LowPass;
-            FilterFreq = 350;
-            FilterQ = 2;
+            FilterType = FilterType.Off;
+            FilterFreq = 250;
+            FilterQ = 1;
 
             UpdateSynth();
         }
