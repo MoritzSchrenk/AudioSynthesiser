@@ -4,9 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:uc="clr-namespace:AudioSynthesiser.View.Controls"
+        xmlns:vm="clr-namespace:AudioSynthesiser.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="450" MinWidth="800" KeyDown="Window_KeyDown">
-    <Grid>
+        Title="MainWindow" MinHeight="450" MinWidth="800">
+    <Window.Resources>
+        <vm:SynthesiserViewModel x:Key="vm"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource vm}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -15,7 +19,11 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <uc:OscillatorControl Grid.Row="0"/>
-        <uc:FilterControl Grid.Row="1"/>
+        <uc:OscillatorControl Grid.Row="0" OscFreq="{Binding BaseFreq, Mode=TwoWay}"/>
+        <uc:FilterControl Grid.Row="1" CutoffFreq="{Binding FilterFreq, Mode=TwoWay}" QValue="{Binding FilterQ, Mode=TwoWay}"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Button Content="Play" Command="{Binding PlayCommand}"/>
+            <Button Content="Stop" Command="{Binding StopCommand}"/>
+        </StackPanel>
     </Grid>
 </Window>

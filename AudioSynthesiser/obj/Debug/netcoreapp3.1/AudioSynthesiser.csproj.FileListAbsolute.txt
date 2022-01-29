@@ -39,3 +39,4 @@ D:\Documents\Repos\Practice\WPF\AudioSynthesiser\AudioSynthesiser\obj\Debug\netc
 D:\Documents\Repos\Practice\WPF\AudioSynthesiser\AudioSynthesiser\obj\Debug\netcoreapp3.1\View\Controls\OscillatorControl.baml
 D:\Documents\Repos\Practice\WPF\AudioSynthesiser\AudioSynthesiser\obj\Debug\netcoreapp3.1\View\Controls\FilterControl.g.cs
 D:\Documents\Repos\Practice\WPF\AudioSynthesiser\AudioSynthesiser\obj\Debug\netcoreapp3.1\View\Controls\FilterControl.baml
+D:\Documents\Repos\Practice\WPF\AudioSynthesiser\AudioSynthesiser\obj\Debug\netcoreapp3.1\AudioSynthesiser.GeneratedMSBuildEditorConfig.editorconfig

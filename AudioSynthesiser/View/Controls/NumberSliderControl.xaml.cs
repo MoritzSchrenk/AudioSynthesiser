@@ -26,14 +26,14 @@ namespace AudioSynthesiser.View.Controls
 
         // Using a DependencyProperty as the backing store for Value.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(int), typeof(NumberSliderControl), new PropertyMetadata(1, SetValue));
+            DependencyProperty.Register("Value", typeof(float), typeof(NumberSliderControl), new PropertyMetadata(1f, SetValue));
 
         private static void SetValue(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is NumberSliderControl control)
             {
-                control.NumberTextBox.Text = ((float)e.NewValue).ToString();
-                control.Slider.Value = (float)e.NewValue;
+                control.NumberTextBox.Text = Convert.ToSingle(e.NewValue).ToString();
+                control.Slider.Value = Convert.ToDouble(e.NewValue);
             }
         }
 

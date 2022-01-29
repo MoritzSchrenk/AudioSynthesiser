@@ -5,26 +5,24 @@ using NAudio.Wave.SampleProviders;
 
 namespace AudioSynthesiser.ViewModel
 {
-    internal class Synthesiser
+    public class Synthesiser
     {
-        public SignalGeneratorType WaveForm {get; set;}
-        public int Frequency { get; set; }
-        public Filter Filter { get; set; } = new Filter(FilterType.Off, 0, 0);
+        public Oscillator Oscillator { get; set; }
+        public Filter Filter { get; set; }
 
-        WaveOutEvent wo;
+        private WaveOutEvent wo;
         public void Play()
         {
             if (wo != null)
             {
-                wo.Stop();
-                wo = null;
+                Stop();
             }
 
             ISampleProvider  sg = new SignalGenerator()
             {
-                Gain = 0.05,
-                Frequency = Frequency,
-                Type = WaveForm
+                Gain = Oscillator.Gain,
+                Frequency = Oscillator.Frequency,
+                Type = Oscillator.Type
             };
 
             BiQuadFilter filter = null;
@@ -69,6 +67,15 @@ namespace AudioSynthesiser.ViewModel
             if(wo != null)
             {
                 Play();
+            }
+        }
+
+        public void Stop()
+        {
+            if (wo != null)
+            {
+                wo.Stop();
+                wo = null;
             }
         }
     }

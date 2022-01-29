@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AudioSynthesiser.View.Controls
 {
@@ -22,5 +12,26 @@ namespace AudioSynthesiser.View.Controls
         {
             InitializeComponent();
         }
+
+        public float CutoffFreq
+        {
+            get { return (float)GetValue(CutoffFreqProperty); }
+            set { SetValue(CutoffFreqProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for cutoffFreq.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CutoffFreqProperty =
+            DependencyProperty.Register("CutoffFreq", typeof(float), typeof(FilterControl), new PropertyMetadata(0f));
+
+
+        public float QValue
+        {
+            get { return (float)GetValue(QValueProperty); }
+            set { SetValue(QValueProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for QValue.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty QValueProperty =
+            DependencyProperty.Register("QValue", typeof(float), typeof(FilterControl), new PropertyMetadata(0f));
     }
 }
