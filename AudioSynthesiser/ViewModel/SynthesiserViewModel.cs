@@ -83,6 +83,42 @@ namespace AudioSynthesiser.ViewModel
             }
         }
 
+        private double lfoFreq;
+        public double LfoFreq
+        {
+            get => lfoFreq;
+            set
+            {
+                lfoFreq = value;
+                OnPropertyChanged("LfoFreq");
+                UpdateSynth();
+            }
+        }
+
+        private double lfoAmplitude;
+        public double LfoAmplitude
+        {
+            get => lfoAmplitude;
+            set
+            {
+                lfoAmplitude = value;
+                OnPropertyChanged("LfoAmplitude"); UpdateSynth();
+                UpdateSynth();
+            }
+        }
+
+        private SignalGeneratorType lfoWaveForm;
+        public SignalGeneratorType LfoWaveForm
+        {
+            get => lfoWaveForm;
+            set
+            {
+                lfoWaveForm = value;
+                OnPropertyChanged("LfoWaveForm");
+                UpdateSynth();
+            }
+        }
+
         #endregion
 
 
@@ -102,6 +138,9 @@ namespace AudioSynthesiser.ViewModel
             FilterType = FilterType.Off;
             FilterFreq = 250;
             FilterQ = 1;
+            LfoWaveForm = SignalGeneratorType.Sin;
+            LfoFreq = 5;
+            LfoAmplitude = 0.25;
 
             UpdateSynth();
         }
@@ -116,6 +155,7 @@ namespace AudioSynthesiser.ViewModel
         {
             Synth.Oscillator = new Oscillator(waveForm, baseFreq, gain);
             Synth.Filter = new Filter(filterType, filterFreq, filterQ);
+            Synth.Lfo = new Oscillator(lfoWaveForm, lfoFreq, lfoAmplitude);
             Synth.Update();
         }
     }

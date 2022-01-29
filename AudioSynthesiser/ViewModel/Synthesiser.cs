@@ -2,6 +2,7 @@
 using NAudio.Dsp;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
+using System.Collections.Generic;
 
 namespace AudioSynthesiser.ViewModel
 {
@@ -10,15 +11,29 @@ namespace AudioSynthesiser.ViewModel
         public Oscillator Oscillator { get; set; }
         public Filter Filter { get; set; }
 
+        public Oscillator Lfo { get; set; }
+
         private WaveOutEvent wo;
         public void Play()
         {
-            ISampleProvider  sg = new SignalGenerator()
+            ISampleProvider sg = new SignalGenerator()
             {
                 Gain = Oscillator.Gain,
                 Frequency = Oscillator.Frequency,
                 Type = Oscillator.Type
             };
+
+            if (Lfo.Gain != 0)
+            {
+                ISampleProvider lfoProvider = new SignalGenerator()
+                {
+                    Gain = Lfo.Gain,
+                    Frequency = Lfo.Frequency,
+                    Type = Lfo.Type
+                };
+
+                sg = new LfoProvider(sg, lfoProvider);
+            }
 
             BiQuadFilter filter = null;
             switch (Filter.Type)
@@ -50,6 +65,11 @@ namespace AudioSynthesiser.ViewModel
             {
                 wo = new WaveOutEvent();
             }
+            else
+            {
+                wo.Stop();
+            }
+
             wo.Init(sg);
             wo.Play();
         }

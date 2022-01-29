@@ -24,7 +24,8 @@
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1">
             <uc:FrequencyControl Margin="15,0,0,0"  HorizontalAlignment="Left" Frequency="{Binding ElementName=ThisFilterControl, Path=CutoffFreq, Mode=TwoWay}"/>
-            <uc:NumberSliderControl Margin="15,0,0,0"  HorizontalAlignment="Left" Value="{Binding ElementName=ThisFilterControl, Path=QValue, Mode=TwoWay}"/>
+            <uc:NumberSliderControl Margin="15,0,0,0"  HorizontalAlignment="Left" Value="{Binding ElementName=ThisFilterControl, Path=QValue, Mode=TwoWay}"
+                                    Label="Q" MinValue="0.5" MaxValue="15"/>
         </StackPanel>
     </StackPanel>
 </UserControl>

@@ -15,6 +15,16 @@ namespace AudioSynthesiser.View.Controls
             InitializeComponent();
         }
 
+        public string Label
+        {
+            get => (string)GetValue(LabelProperty);
+            set => SetValue(LabelProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for Label.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty LabelProperty =
+            DependencyProperty.Register("Label", typeof(string), typeof(OscillatorControl), new PropertyMetadata(""));
+
         public SignalGeneratorType WaveForm
         {
             get => (SignalGeneratorType)GetValue(WaveFormProperty);
@@ -34,5 +44,15 @@ namespace AudioSynthesiser.View.Controls
         // Using a DependencyProperty as the backing store for BaseFreq.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty OscFreqProperty =
             DependencyProperty.Register("OscFreq", typeof(double), typeof(OscillatorControl), new PropertyMetadata(0d));
+
+        public double Amplitude
+        {
+            get => (double)GetValue(AmplitudeProperty);
+            set => SetValue(AmplitudeProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for Amplitude.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AmplitudeProperty =
+            DependencyProperty.Register("Amplitude", typeof(double), typeof(OscillatorControl), new PropertyMetadata(0d));
     }
 }
