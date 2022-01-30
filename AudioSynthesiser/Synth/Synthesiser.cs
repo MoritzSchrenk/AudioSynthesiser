@@ -5,12 +5,13 @@ using NAudio.Wave.SampleProviders;
 
 namespace AudioSynthesiser.Synth
 {
-    public class Synthesiser
+    public class Synthesiser : ISynthesiser
     {
         public Oscillator Oscillator { get; set; }
-        public Filter Filter { get; set; }
-
         public Oscillator Lfo { get; set; }
+        public Filter Filter { get; set; }
+        public float Volume { get; set; }
+
 
         private WaveOutEvent wo;
         public void Play()
@@ -71,6 +72,7 @@ namespace AudioSynthesiser.Synth
             }
 
             wo.Init(sg);
+            wo.Volume = Volume;
             wo.Play();
         }
 

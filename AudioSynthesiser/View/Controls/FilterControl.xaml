@@ -8,30 +8,38 @@
              xmlns:cnv="clr-namespace:AudioSynthesiser.ViewModel.Converters"
              xmlns:mdl="clr-namespace:AudioSynthesiser.Model"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="500">
+             d:DesignHeight="250" d:DesignWidth="400">
     <UserControl.Resources>
         <cnv:EnumToBooleanConverter x:Key="enumToBooleanConverter"/>
     </UserControl.Resources>
-    <StackPanel Orientation="Horizontal" Background="AliceBlue">
-        <StackPanel Grid.Row="1" Grid.Column="0" Margin="5">
-            <StackPanel Orientation="Horizontal">
-                <CheckBox x:Name="EnabledCheckBox" VerticalAlignment="Center" IsChecked="{Binding ElementName=ThisFilterControl, Path=Enabled, Mode=TwoWay}"/>
-                <Label FontWeight="Bold">Filter</Label>
-            </StackPanel>
-            <Label Margin="0,5,0,0">Type</Label>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+            <CheckBox x:Name="EnabledCheckBox" VerticalAlignment="Center" IsChecked="{Binding ElementName=ThisFilterControl, Path=Enabled, Mode=TwoWay}"/>
+            <Label Style="{DynamicResource ComponentHeadingStyle}" VerticalAlignment="Center">Filter</Label>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="0"  Margin="30,0,0,0">
+            <Label Style="{DynamicResource SettingHeadingStyle}">Type</Label>
             <RadioButton IsEnabled="{Binding ElementName=ThisFilterControl, Path=Enabled}" Content="Low Pass" IsChecked="{Binding ElementName=ThisFilterControl, Path=Type, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static mdl:FilterType.LowPass}}"/>
             <RadioButton IsEnabled="{Binding ElementName=ThisFilterControl, Path=Enabled}" Content="High Pass" IsChecked="{Binding ElementName=ThisFilterControl, Path=Type, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static mdl:FilterType.HighPass}}"/>
             <RadioButton IsEnabled="{Binding ElementName=ThisFilterControl, Path=Enabled}" Content="Band Pass" IsChecked="{Binding ElementName=ThisFilterControl, Path=Type, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static mdl:FilterType.BandPass}}"/>
             <RadioButton IsEnabled="{Binding ElementName=ThisFilterControl, Path=Enabled}" Content="Notch" IsChecked="{Binding ElementName=ThisFilterControl, Path=Type, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static mdl:FilterType.Notch}}"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <uc:FrequencyControl Margin="15,0,0,0"  HorizontalAlignment="Left" MaxValue="140"
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <uc:FrequencyControl MaxValue="140"
                                  Enabled="{Binding ElementName=ThisFilterControl, Path=Enabled}"
                                  Frequency="{Binding ElementName=ThisFilterControl, Path=CutoffFreq, Mode=TwoWay}"/>
-            <uc:NumberSliderControl Margin="15,0,0,0"  HorizontalAlignment="Left"
+            <uc:NumberSliderControl HorizontalAlignment="Left"
                                     Label="Q" MinValue="0.5" MaxValue="15"
                                     Enabled="{Binding ElementName=ThisFilterControl, Path=Enabled}"
                                     Value="{Binding ElementName=ThisFilterControl, Path=QValue, Mode=TwoWay}"/>
         </StackPanel>
-    </StackPanel>
+    </Grid>
 </UserControl>

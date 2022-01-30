@@ -8,30 +8,37 @@
              xmlns:uc="clr-namespace:AudioSynthesiser.View.Controls"
              xmlns:cnv="clr-namespace:AudioSynthesiser.ViewModel.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="500">
+             d:DesignHeight="250" d:DesignWidth="400">
     <UserControl.Resources>
         <cnv:EnumToBooleanConverter x:Key="enumToBooleanConverter"/>
     </UserControl.Resources>
-    <StackPanel Orientation="Horizontal" Background="AliceBlue">
-        <StackPanel Grid.Row="0" Margin="5">
-            <StackPanel Orientation="Horizontal">
-                <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=ThisOscillatorControl, Path=Enabled}"/>
-                <Label FontWeight="Bold" Content="{Binding ElementName=ThisOscillatorControl, Path=Label}"/>
-            </StackPanel>
-            <Label>Waveform</Label>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+            <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=ThisOscillatorControl, Path=Enabled}"/>
+            <Label Style="{DynamicResource ComponentHeadingStyle}" VerticalAlignment="Center" Content="{Binding ElementName=ThisOscillatorControl, Path=Label}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="30,0,0,0">
+            <Label Style="{DynamicResource SettingHeadingStyle}">Waveform</Label>
             <RadioButton IsEnabled="{Binding ElementName=ThisOscillatorControl, Path=Enabled}" Content="Sine" IsChecked="{Binding ElementName=ThisOscillatorControl, Path=WaveForm, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static naudio:SignalGeneratorType.Sin}}"/>
             <RadioButton IsEnabled="{Binding ElementName=ThisOscillatorControl, Path=Enabled}" Content="Sawtooth" IsChecked="{Binding ElementName=ThisOscillatorControl, Path=WaveForm, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static naudio:SignalGeneratorType.SawTooth}}"/>
             <RadioButton IsEnabled="{Binding ElementName=ThisOscillatorControl, Path=Enabled}" Content="Triangle" IsChecked="{Binding ElementName=ThisOscillatorControl, Path=WaveForm, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static naudio:SignalGeneratorType.Triangle}}"/>
             <RadioButton IsEnabled="{Binding ElementName=ThisOscillatorControl, Path=Enabled}" Content="Square" IsChecked="{Binding ElementName=ThisOscillatorControl, Path=WaveForm, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static naudio:SignalGeneratorType.Square}}"/>
         </StackPanel>
-        <StackPanel>
-            <uc:FrequencyControl HorizontalAlignment="Left" Margin="15,0,0,0" Height="90"
-                                 Enabled="{Binding ElementName=ThisOscillatorControl, Path=Enabled}"
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right">
+            <uc:FrequencyControl Enabled="{Binding ElementName=ThisOscillatorControl, Path=Enabled}"
                                  MaxValue="{Binding ElementName=ThisOscillatorControl, Path=MaxFrequency}"
                                  Frequency="{Binding ElementName=ThisOscillatorControl, Path=OscFreq, Mode=TwoWay}"/>
-            <uc:NumberSliderControl Margin="15,0,0,0"  HorizontalAlignment="Left" Label="Amplitude" MinValue="0" MaxValue="1"
+            <uc:NumberSliderControl Label="Amplitude" MinValue="0" MaxValue="1"
                                     Enabled="{Binding ElementName=ThisOscillatorControl, Path=Enabled}"
                                     Value="{Binding ElementName=ThisOscillatorControl, Path=Amplitude, Mode=TwoWay}"/>
         </StackPanel>
-    </StackPanel>
+    </Grid>
 </UserControl>

@@ -1,9 +1,6 @@
-﻿using AudioSynthesiser.Model;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using NAudio.Wave.SampleProviders;
-using System.Text.RegularExpressions;
+﻿using System.Windows;
+using AudioSynthesiser.ViewModel;
+using Unity;
 
 namespace AudioSynthesiser.View
 {
@@ -12,6 +9,12 @@ namespace AudioSynthesiser.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        [Dependency]
+        public SynthesiserViewModel ViewModel
+        {
+            set { DataContext = value; }
+        }
+
         public MainWindow()
         {
             InitializeComponent();

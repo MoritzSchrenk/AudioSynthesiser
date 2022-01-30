@@ -40,3 +40,7 @@ D:\Documents\Repos\Practice\WPF\AudioSynthesiser\AudioSynthesiser\obj\Debug\netc
 D:\Documents\Repos\Practice\WPF\AudioSynthesiser\AudioSynthesiser\obj\Debug\netcoreapp3.1\View\Controls\FilterControl.g.cs
 D:\Documents\Repos\Practice\WPF\AudioSynthesiser\AudioSynthesiser\obj\Debug\netcoreapp3.1\View\Controls\FilterControl.baml
 D:\Documents\Repos\Practice\WPF\AudioSynthesiser\AudioSynthesiser\obj\Debug\netcoreapp3.1\AudioSynthesiser.GeneratedMSBuildEditorConfig.editorconfig
+D:\Documents\Repos\Practice\WPF\AudioSynthesiser\AudioSynthesiser\bin\Debug\netcoreapp3.1\Unity.Abstractions.dll
+D:\Documents\Repos\Practice\WPF\AudioSynthesiser\AudioSynthesiser\bin\Debug\netcoreapp3.1\Unity.Container.dll
+D:\Documents\Repos\Practice\WPF\AudioSynthesiser\AudioSynthesiser\obj\Debug\netcoreapp3.1\App.baml
+D:\Documents\Repos\Practice\WPF\AudioSynthesiser\AudioSynthesiser\obj\Debug\netcoreapp3.1\AudioSynthesiser.csproj.AssemblyReference.cache

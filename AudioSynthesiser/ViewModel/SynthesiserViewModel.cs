@@ -10,7 +10,20 @@ namespace AudioSynthesiser.ViewModel
     {
         #region props
 
-        public Synthesiser Synth { get; set; }
+        public ISynthesiser Synthesiser { get; set; }
+
+        private float volume;
+        public float Volume
+        {
+            get => volume;
+            set
+            {
+                volume = value;
+                OnPropertyChanged("Volume");
+                UpdateVolume();
+            }
+        }
+
 
         // Oscillator
         private bool oscOn;
@@ -164,12 +177,14 @@ namespace AudioSynthesiser.ViewModel
         public SynthPlayCommand PlayCommand { get; set; }
         public SynthStopCommand StopCommand { get; set; }
 
-        public SynthesiserViewModel()
+        public SynthesiserViewModel(ISynthesiser synthesiser)
         {
+            Synthesiser = synthesiser;
+
             PlayCommand = new SynthPlayCommand(this);
             StopCommand = new SynthStopCommand(this);
 
-            Synth = new Synthesiser();
+            Volume = 1;
 
             OscOn = true;
             WaveForm = SignalGeneratorType.Sin;
@@ -191,26 +206,34 @@ namespace AudioSynthesiser.ViewModel
             UpdateLfo();
         }
 
+        public SynthesiserViewModel() { }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private void UpdateVolume()
+        {
+            Synthesiser.Volume = Volume;
+            Synthesiser.Update();
+        }
+
         private void UpdateOscillator()
         {
-            Synth.Oscillator = new Oscillator(waveForm, baseFreq, gain, oscOn);
-            Synth.Update();
+            Synthesiser.Oscillator = new Oscillator(waveForm, baseFreq, gain, oscOn);
+            Synthesiser.Update();
         }
         private void UpdateFilter()
         {
-            Synth.Filter = new Filter(filterType, filterFreq, filterQ, filterOn);
-            Synth.Update();
+            Synthesiser.Filter = new Filter(filterType, filterFreq, filterQ, filterOn);
+            Synthesiser.Update();
         }
         private void UpdateLfo()
         {
-            Synth.Lfo = new Oscillator(lfoWaveForm, lfoFreq, lfoAmplitude, lfoOn);
-            Synth.Update();
+            Synthesiser.Lfo = new Oscillator(lfoWaveForm, lfoFreq, lfoAmplitude, lfoOn);
+            Synthesiser.Update();
         }
     }
 }

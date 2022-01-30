@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AudioSynthesiser.Synth;
+using AudioSynthesiser.View;
 using System.Windows;
 
 namespace AudioSynthesiser
@@ -13,5 +9,11 @@ namespace AudioSynthesiser
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            DependencyInjector.Register<ISynthesiser, Synthesiser>();
+            MainWindow = DependencyInjector.Retrieve<MainWindow>();
+            MainWindow.Show();
+        }
     }
 }

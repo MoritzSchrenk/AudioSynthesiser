@@ -4,24 +4,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:vm="clr-namespace:AudioSynthesiser.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="90" d:DesignWidth="320">
-    <UserControl.Resources>
-        <vm:SynthesiserViewModel x:Key="vm"/>
-    </UserControl.Resources>
-    <Border Background="LightGray">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Background="LightGray" Margin="10" DataContext="{StaticResource vm}">
-            <Label Content="{Binding ElementName=ThisNumberSliderControl, Path=Label, Mode=OneWay}"/>
-            <TextBox x:Name="NumberTextBox" Width="100"
+             d:DesignHeight="100" d:DesignWidth="300">
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Label Style="{DynamicResource SettingHeadingStyle}" Content="{Binding ElementName=ThisNumberSliderControl, Path=Label, Mode=OneWay}"/>
+        <TextBox x:Name="NumberTextBox" Width="100"
                      HorizontalAlignment="Left" TextAlignment="Right"
                      IsEnabled="{Binding ElementName=ThisNumberSliderControl, Path=Enabled}"
                      Text="{Binding ElementName=ThisNumberSliderControl, Path=Value, Mode=TwoWay, StringFormat=N2, UpdateSourceTrigger=PropertyChanged}"/>
-            <Slider x:Name="Slider" Width="300" HorizontalAlignment="Left" Margin="0,5" 
-                    IsEnabled="{Binding ElementName=ThisNumberSliderControl, Path=Enabled}"
-                    Minimum="{Binding ElementName=ThisNumberSliderControl, Path=MinValue, Mode=OneWay}"
-                    Maximum="{Binding ElementName=ThisNumberSliderControl, Path=MaxValue, Mode=OneWay}"
-                    Value="{Binding ElementName=ThisNumberSliderControl, Path=Value, Mode=TwoWay}"/>
-        </StackPanel>
-    </Border>
+        <Slider x:Name="Slider" Width="200"
+                    IsMoveToPointEnabled="True"
+                    IsEnabled="{Binding Enabled, ElementName=ThisNumberSliderControl}"
+                    Minimum="{Binding MinValue, ElementName=ThisNumberSliderControl, Mode=OneWay}"
+                    Maximum="{Binding MaxValue, ElementName=ThisNumberSliderControl, Mode=OneWay}"
+                    Value="{Binding Value, ElementName=ThisNumberSliderControl, Mode=TwoWay}"/>
+    </StackPanel>
 </UserControl>

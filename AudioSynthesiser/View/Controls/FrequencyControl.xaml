@@ -6,24 +6,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:cnv="clr-namespace:AudioSynthesiser.ViewModel.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="90" d:DesignWidth="320">
-    <Border Background="LightGray">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Background="LightGray" Margin="10">
-            <StackPanel.Resources>
-                <cnv:QuadraticNumberConverter x:Key="QuadraticNumberConverter"/>
-            </StackPanel.Resources>
-            <Label>Frequency</Label>
-            <DockPanel>
-                <TextBox x:Name="FreqTextBox"  Width="100"
-                         IsEnabled="{Binding ElementName=ThisFrequencyControl, Path=Enabled}"
-                         Text="{Binding ElementName=ThisFrequencyControl, Path=Frequency, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         HorizontalAlignment="Left" TextAlignment="Right"/>
-                <Label>Hz</Label>
-            </DockPanel>
-            <Slider x:Name="FreqSlider"  Width="300" Minimum="1" Maximum="{Binding ElementName=ThisFrequencyControl, Path=MaxValue, Mode=TwoWay}"
-                    HorizontalAlignment="Left" Margin="0,5"
+             d:DesignHeight="100" d:DesignWidth="300">
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel.Resources>
+            <cnv:QuadraticNumberConverter x:Key="QuadraticNumberConverter"/>
+        </StackPanel.Resources>
+        <Label Style="{DynamicResource SettingHeadingStyle}">Frequency</Label>
+        <StackPanel Orientation="Horizontal">
+            <TextBox x:Name="FreqTextBox"  Width="100"
                     IsEnabled="{Binding ElementName=ThisFrequencyControl, Path=Enabled}"
-                    Value="{Binding ElementName=ThisFrequencyControl, Path=Frequency, Mode=TwoWay, Converter={StaticResource QuadraticNumberConverter}}"/>
+                    Text="{Binding ElementName=ThisFrequencyControl, Path=Frequency, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    HorizontalAlignment="Left" TextAlignment="Right"/>
+            <Label>Hz</Label>
         </StackPanel>
-    </Border>
+        <Slider x:Name="FreqSlider"  Width="200" HorizontalAlignment="Left" Margin="0,5"
+                Minimum="1" IsMoveToPointEnabled="True"
+                Maximum="{Binding ElementName=ThisFrequencyControl, Path=MaxValue, Mode=TwoWay}"
+                IsEnabled="{Binding ElementName=ThisFrequencyControl, Path=Enabled}"
+                Value="{Binding ElementName=ThisFrequencyControl, Path=Frequency, Mode=TwoWay, Converter={StaticResource QuadraticNumberConverter}}"/>
+    </StackPanel>
 </UserControl>

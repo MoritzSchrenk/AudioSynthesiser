@@ -4,42 +4,60 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:uc="clr-namespace:AudioSynthesiser.View.Controls"
-        xmlns:vm="clr-namespace:AudioSynthesiser.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="450" MinWidth="800">
-    <Window.Resources>
-        <vm:SynthesiserViewModel x:Key="vm"/>
-    </Window.Resources>
-    <Grid DataContext="{StaticResource vm}">
+        Title="MainWindow" Height="700" Width="400">
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <uc:OscillatorControl Grid.Row="0" Label="Oscillator"
-                              OscFreq="{Binding BaseFreq, Mode=TwoWay}"
-                              WaveForm="{Binding WaveForm, Mode=TwoWay}"
-                              Amplitude="{Binding Gain, Mode=TwoWay}"
-                              Enabled="{Binding OscOn, Mode=TwoWay}"
-                              MaxFrequency="140"/>
-        <uc:FilterControl Grid.Row="1"
-                          CutoffFreq="{Binding FilterFreq, Mode=TwoWay}"
-                          QValue="{Binding FilterQ, Mode=TwoWay}"
-                          Type="{Binding FilterType, Mode=TwoWay}"
-                          Enabled="{Binding FilterOn, Mode=TwoWay}"/>
-        <uc:OscillatorControl Grid.Row="0" Label="LFO" Grid.Column="1"
+        <Border Style="{DynamicResource BorderBase}">
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Background="LightGray">
+                <Button Command="{Binding PlayCommand}" CommandParameter="{Binding OscOn}">
+                    <Viewbox Width="48" Height="48">
+                        <Canvas Width="24" Height="24">
+                            <Path Fill="Green" Data="M10,16.5V7.5L16,12M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                        </Canvas>
+                    </Viewbox>
+                </Button>
+                <Button Command="{Binding StopCommand}" CommandParameter="{Binding OscOn}">
+                    <Viewbox Width="48" Height="48">
+                        <Canvas Width="24" Height="24">
+                            <Path Fill="Red" Data="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M9,9H15V15H9" />
+                        </Canvas>
+                    </Viewbox>
+                </Button>
+                <Slider Width="250" Minimum="0" Maximum="1" Margin="20,0" VerticalAlignment="Center"
+                        Value="{Binding Volume, Mode=TwoWay}" IsMoveToPointEnabled="True"/>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="1" Style="{DynamicResource OscStyle}">
+            <uc:OscillatorControl Label="Oscillator" Margin="10,5"
+                                  OscFreq="{Binding BaseFreq, Mode=TwoWay}"
+                                  WaveForm="{Binding WaveForm, Mode=TwoWay}"
+                                  Amplitude="{Binding Gain, Mode=TwoWay}"
+                                  Enabled="{Binding OscOn, Mode=TwoWay}"
+                                  MaxFrequency="140"/>
+        </Border>
+        <Border Grid.Row="2" Style="{DynamicResource LfoStyle}">
+            <uc:OscillatorControl Label="LFO" Margin="10,5"
                               OscFreq="{Binding LfoFreq, Mode=TwoWay}"
                               WaveForm="{Binding LfoWaveForm, Mode=TwoWay}"
                               Amplitude="{Binding LfoAmplitude, Mode=TwoWay}"
                               Enabled="{Binding LfoOn, Mode=TwoWay}"
                               MaxFrequency="5"/>
-        <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <Button Content="Play" Command="{Binding PlayCommand}" CommandParameter="{Binding OscOn}"/>
-            <Button Content="Stop" Command="{Binding StopCommand}" CommandParameter="{Binding OscOn}"/>
-        </StackPanel>
+        </Border>
+        <Border Grid.Row="3" Style="{DynamicResource FilterStyle}">
+            <uc:FilterControl Margin="10,5"
+                          CutoffFreq="{Binding FilterFreq, Mode=TwoWay}"
+                          QValue="{Binding FilterQ, Mode=TwoWay}"
+                          Type="{Binding FilterType, Mode=TwoWay}"
+                          Enabled="{Binding FilterOn, Mode=TwoWay}"/>
+        </Border>
     </Grid>
 </Window>

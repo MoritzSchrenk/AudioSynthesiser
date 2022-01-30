@@ -20,12 +20,12 @@ namespace AudioSynthesiser.ViewModel.Commands
 
         public bool CanExecute(object parameter)
         {
-            return parameter != null && parameter is bool ? (bool)parameter : false;
+            return parameter != null && (parameter is bool ? (bool)parameter : false);
         }
 
         public void Execute(object parameter)
         {
-            VM.Synth.Stop();
+            VM.Synthesiser.Stop();
         }
     }
 }
