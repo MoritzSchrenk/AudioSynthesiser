@@ -43,20 +43,20 @@ namespace AudioSynthesiser.Synth
 
             if (Filter.IsEnabled())
             {
-                BiQuadFilter filter = null;
+                SynthFilter filter = null;
                 switch (Filter.Type)
                 {
                     case FilterType.LowPass:
-                        filter = BiQuadFilter.LowPassFilter(sg.WaveFormat.SampleRate, Filter.Frequency, Filter.Q);
+                        filter = new SynthFilter(BiQuadFilter.LowPassFilter(sg.WaveFormat.SampleRate, Filter.Frequency, Filter.Q));
                         break;
                     case FilterType.HighPass:
-                        filter = BiQuadFilter.HighPassFilter(sg.WaveFormat.SampleRate, Filter.Frequency, Filter.Q);
+                        filter = new SynthFilter(BiQuadFilter.HighPassFilter(sg.WaveFormat.SampleRate, Filter.Frequency, Filter.Q));
                         break;
                     case FilterType.BandPass:
-                        filter = BiQuadFilter.BandPassFilterConstantPeakGain(sg.WaveFormat.SampleRate, Filter.Frequency, Filter.Q);
+                        filter = new SynthFilter(BiQuadFilter.BandPassFilterConstantPeakGain(sg.WaveFormat.SampleRate, Filter.Frequency, Filter.Q));
                         break;
                     case FilterType.Notch:
-                        filter = BiQuadFilter.NotchFilter(sg.WaveFormat.SampleRate, Filter.Frequency, Filter.Q);
+                        filter = new SynthFilter(BiQuadFilter.NotchFilter(sg.WaveFormat.SampleRate, Filter.Frequency, Filter.Q));
                         break;
                 }
                 sg = new FilterProvider(sg, filter);

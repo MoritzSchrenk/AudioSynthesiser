@@ -6,16 +6,11 @@ namespace AudioSynthesiser.Synth
     public class FilterProvider : ISampleProvider
     {
         private readonly ISampleProvider sourceProvider;
-        private BiQuadFilter filter;
+        private readonly IFilter filter;
 
-        public FilterProvider(ISampleProvider sourceProvider, BiQuadFilter filter)
+        public FilterProvider(ISampleProvider sourceProvider, IFilter filter)
         {
             this.sourceProvider = sourceProvider;
-            this.filter = filter;
-        }
-
-        public void Update(BiQuadFilter filter)
-        {
             this.filter = filter;
         }
 
