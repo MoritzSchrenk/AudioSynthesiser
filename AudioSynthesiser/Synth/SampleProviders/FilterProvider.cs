@@ -1,9 +1,8 @@
-﻿using NAudio.Dsp;
-using NAudio.Wave;
+﻿using NAudio.Wave;
 
-namespace AudioSynthesiser.Synth
+namespace AudioSynthesiser.Synth.SampleProviders
 {
-    public class FilterProvider : AbstractSourceProviderDecorator
+    public class FilterProvider : AbstractSampleProviderDecorator
     {
         private readonly IFilter filter;
 

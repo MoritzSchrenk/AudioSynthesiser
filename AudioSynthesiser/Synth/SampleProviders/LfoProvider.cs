@@ -1,8 +1,8 @@
 ﻿using NAudio.Wave;
 
-namespace AudioSynthesiser.Synth
+namespace AudioSynthesiser.Synth.SampleProviders
 {
-    public class LfoProvider : AbstractSourceProviderDecorator
+    public class LfoProvider : AbstractSampleProviderDecorator
     {
         private readonly ISampleProvider _lfo;
 

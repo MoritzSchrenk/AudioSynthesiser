@@ -1,5 +1,6 @@
 ﻿using AudioSynthesiser.Model;
 using AudioSynthesiser.Synth;
+using AudioSynthesiser.Synth.SampleProviders;
 using AudioSynthesiser.ViewModel.Commands;
 using NAudio.Wave.SampleProviders;
 using System;
@@ -11,8 +12,8 @@ namespace AudioSynthesiser.ViewModel
     {
         #region props
 
+        private readonly ISampleProviderFactory _synthFactory;
         public ISynthesiser Synthesiser { get; set; }
-        public ChainingSampleProviderFactory SampleProviderFactory { get; set; }
 
         private float volume;
         public float Volume
@@ -179,15 +180,13 @@ namespace AudioSynthesiser.ViewModel
         public SynthPlayCommand PlayCommand { get; set; }
         public SynthStopCommand StopCommand { get; set; }
 
-        public SynthesiserViewModel(ISynthesiser synthesiser)
+        public SynthesiserViewModel(ISynthesiser synthesiser, ISampleProviderFactory synthesiserFactory)
         {
             Synthesiser = synthesiser;
+            _synthFactory = synthesiserFactory;
 
-            SampleProviderFactory = new ChainingSampleProviderFactory();
             PlayCommand = new SynthPlayCommand(this);
             StopCommand = new SynthStopCommand(this);
-
-            Volume = 1;
 
             OscOn = true;
             WaveForm = SignalGeneratorType.Sin;
@@ -203,6 +202,8 @@ namespace AudioSynthesiser.ViewModel
             LfoWaveForm = SignalGeneratorType.Sin;
             LfoFreq = 5;
             LfoAmplitude = 0.25;
+
+            Volume = 1;
         }
 
         public SynthesiserViewModel() { }
@@ -213,31 +214,32 @@ namespace AudioSynthesiser.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void UpdateVolume()
-        {
-            SampleProviderFactory.Volume = Volume;
-            UpdateSynth();
-        }
-
         private void UpdateOscillator()
         {
-            SampleProviderFactory.Oscillator = new Oscillator(waveForm, baseFreq, gain, oscOn);
-            UpdateSynth();
-        }
-        private void UpdateFilter()
-        {
-            SampleProviderFactory.Filter = new Filter(filterType, filterFreq, filterQ, filterOn);
+            _synthFactory.Oscillator = new Oscillator(waveForm, baseFreq, gain, oscOn);
             UpdateSynth();
         }
         private void UpdateLfo()
         {
-            SampleProviderFactory.Lfo = new Oscillator(lfoWaveForm, lfoFreq, lfoAmplitude, lfoOn);
+            _synthFactory.Lfo = new Oscillator(lfoWaveForm, lfoFreq, lfoAmplitude, lfoOn);
+            UpdateSynth();
+        }
+
+        private void UpdateFilter()
+        {
+            _synthFactory.Filter = new Filter(filterType, filterFreq, filterQ, filterOn);
+            UpdateSynth();
+        }
+
+        private void UpdateVolume()
+        {
+            _synthFactory.Volume = Volume;
             UpdateSynth();
         }
 
         private void UpdateSynth()
         {
-            Synthesiser.SetSampleProvider(SampleProviderFactory.Make());
+            Synthesiser.SetSampleProvider(_synthFactory.BuildSampleProvider());
             Synthesiser.Update();
         }
     }

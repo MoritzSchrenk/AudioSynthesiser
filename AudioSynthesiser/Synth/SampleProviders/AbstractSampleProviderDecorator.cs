@@ -1,14 +1,14 @@
 ﻿using NAudio.Wave;
 
-namespace AudioSynthesiser.Synth
+namespace AudioSynthesiser.Synth.SampleProviders
 {
-    public abstract class AbstractSourceProviderDecorator : ISampleProvider
+    public abstract class AbstractSampleProviderDecorator : ISampleProvider
     {
         protected ISampleProvider SourceProvider { get; }
 
         public WaveFormat WaveFormat => SourceProvider.WaveFormat;
 
-        public AbstractSourceProviderDecorator(ISampleProvider sampleProvider)
+        public AbstractSampleProviderDecorator(ISampleProvider sampleProvider)
         {
             SourceProvider = sampleProvider;
         }

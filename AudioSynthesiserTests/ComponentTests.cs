@@ -1,10 +1,6 @@
-﻿using AudioSynthesiser.Synth;
+﻿using AudioSynthesiser.Synth.SampleProviders;
 using AudioSynthesiserTests.Helpers;
-using NAudio.Dsp;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AudioSynthesiserTests
 {
