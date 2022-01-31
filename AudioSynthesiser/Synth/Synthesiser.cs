@@ -1,65 +1,23 @@
-﻿using AudioSynthesiser.Model;
-using NAudio.Dsp;
-using NAudio.Wave;
-using NAudio.Wave.SampleProviders;
+﻿using NAudio.Wave;
 
 namespace AudioSynthesiser.Synth
 {
     public class Synthesiser : ISynthesiser
     {
-        public Oscillator Oscillator { get; set; }
-        public Oscillator Lfo { get; set; }
-        public Filter Filter { get; set; }
-        public float Volume { get; set; }
-
-
+        private ISampleProvider _sampleProvider;
         private WaveOutEvent wo;
+
+        public void SetSampleProvider(ISampleProvider sampleProvider)
+        {
+            _sampleProvider = sampleProvider;
+        }
+
         public void Play()
         {
-            if (!Oscillator.IsEnabled())
+            if(_sampleProvider == null)
             {
                 Stop();
                 return;
-            }
-
-            ISampleProvider sg = new SignalGenerator()
-            {
-                Gain = Oscillator.Gain,
-                Frequency = Oscillator.Frequency,
-                Type = Oscillator.Type
-            };
-
-            if (Lfo.IsEnabled())
-            {
-                ISampleProvider lfoProvider = new SignalGenerator()
-                {
-                    Gain = Lfo.Gain,
-                    Frequency = Lfo.Frequency,
-                    Type = Lfo.Type
-                };
-
-                sg = new LfoProvider(sg, lfoProvider);
-            }
-
-            if (Filter.IsEnabled())
-            {
-                SynthFilter filter = null;
-                switch (Filter.Type)
-                {
-                    case FilterType.LowPass:
-                        filter = new SynthFilter(BiQuadFilter.LowPassFilter(sg.WaveFormat.SampleRate, Filter.Frequency, Filter.Q));
-                        break;
-                    case FilterType.HighPass:
-                        filter = new SynthFilter(BiQuadFilter.HighPassFilter(sg.WaveFormat.SampleRate, Filter.Frequency, Filter.Q));
-                        break;
-                    case FilterType.BandPass:
-                        filter = new SynthFilter(BiQuadFilter.BandPassFilterConstantPeakGain(sg.WaveFormat.SampleRate, Filter.Frequency, Filter.Q));
-                        break;
-                    case FilterType.Notch:
-                        filter = new SynthFilter(BiQuadFilter.NotchFilter(sg.WaveFormat.SampleRate, Filter.Frequency, Filter.Q));
-                        break;
-                }
-                sg = new FilterProvider(sg, filter);
             }
 
             if (wo == null)
@@ -71,8 +29,7 @@ namespace AudioSynthesiser.Synth
                 wo.Stop();
             }
 
-            wo.Init(sg);
-            wo.Volume = Volume;
+            wo.Init(_sampleProvider);
             wo.Play();
         }
 

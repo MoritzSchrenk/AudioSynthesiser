@@ -1,7 +1,7 @@
 ﻿using AudioSynthesiser.Synth;
 using System;
 
-namespace AudioSynthesiserTests
+namespace AudioSynthesiserTests.Helpers
 {
     public class DummyFilter : IFilter
     {

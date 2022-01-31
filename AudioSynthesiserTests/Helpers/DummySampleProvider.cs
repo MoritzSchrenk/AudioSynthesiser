@@ -1,7 +1,7 @@
 ﻿using NAudio.Wave;
 using System;
 
-namespace AudioSynthesiserTests
+namespace AudioSynthesiserTests.Helpers
 {
     public class DummySampleProvider : ISampleProvider
     {

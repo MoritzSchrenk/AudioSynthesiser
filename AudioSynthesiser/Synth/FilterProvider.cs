@@ -3,22 +3,18 @@ using NAudio.Wave;
 
 namespace AudioSynthesiser.Synth
 {
-    public class FilterProvider : ISampleProvider
+    public class FilterProvider : AbstractSourceProviderDecorator
     {
-        private readonly ISampleProvider sourceProvider;
         private readonly IFilter filter;
 
-        public FilterProvider(ISampleProvider sourceProvider, IFilter filter)
+        public FilterProvider(ISampleProvider sourceProvider, IFilter filter) : base(sourceProvider)
         {
-            this.sourceProvider = sourceProvider;
             this.filter = filter;
         }
 
-        public WaveFormat WaveFormat => sourceProvider.WaveFormat;
-
-        public int Read(float[] buffer, int offset, int count)
+        public override int Read(float[] buffer, int offset, int count)
         {
-            int samplesRead = sourceProvider.Read(buffer, offset, count);
+            int samplesRead = SourceProvider.Read(buffer, offset, count);
 
             for (int n = 0; n < samplesRead; n++)
             {

@@ -1,14 +1,10 @@
-﻿using AudioSynthesiser.Model;
+﻿using NAudio.Wave;
 
 namespace AudioSynthesiser.Synth
 {
     public interface ISynthesiser
     {
-        Oscillator Oscillator { set; }
-        Oscillator Lfo { set; }
-        Filter Filter { set; }
-        float Volume { set; }
-
+        void SetSampleProvider(ISampleProvider sampleProvider);
         void Play();
         void Update();
         void Stop();

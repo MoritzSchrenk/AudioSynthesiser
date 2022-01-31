@@ -1,4 +1,6 @@
-﻿using NAudio.Dsp;
+﻿using AudioSynthesiser.Model;
+using NAudio.Dsp;
+using NAudio.Wave;
 
 namespace AudioSynthesiser.Synth
 {
@@ -6,9 +8,23 @@ namespace AudioSynthesiser.Synth
     {
         private readonly BiQuadFilter _filter;
 
-        public SynthFilter(BiQuadFilter filter)
+        public SynthFilter(Filter filter, ISampleProvider sourceSample)
         {
-            _filter = filter;
+            switch (filter.Type)
+            {
+                case FilterType.LowPass:
+                    _filter = BiQuadFilter.LowPassFilter(sourceSample.WaveFormat.SampleRate, filter.Frequency, filter.Q);
+                    break;
+                case FilterType.HighPass:
+                    _filter = BiQuadFilter.HighPassFilter(sourceSample.WaveFormat.SampleRate, filter.Frequency, filter.Q);
+                    break;
+                case FilterType.BandPass:
+                    _filter = BiQuadFilter.BandPassFilterConstantPeakGain(sourceSample.WaveFormat.SampleRate, filter.Frequency, filter.Q);
+                    break;
+                case FilterType.Notch:
+                    _filter = BiQuadFilter.NotchFilter(sourceSample.WaveFormat.SampleRate, filter.Frequency, filter.Q);
+                    break;
+            }
         }
 
         public float Transform(float inSample)

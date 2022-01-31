@@ -1,4 +1,5 @@
 ﻿using AudioSynthesiser.Synth;
+using AudioSynthesiserTests.Helpers;
 using NAudio.Dsp;
 using NUnit.Framework;
 using System;

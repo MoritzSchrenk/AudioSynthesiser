@@ -2,22 +2,18 @@
 
 namespace AudioSynthesiser.Synth
 {
-    public class LfoProvider : ISampleProvider
+    public class LfoProvider : AbstractSourceProviderDecorator
     {
-        private ISampleProvider _sourceProvider;
-        private ISampleProvider _lfo;
+        private readonly ISampleProvider _lfo;
 
-        public LfoProvider(ISampleProvider provider, ISampleProvider lfo)
+        public LfoProvider(ISampleProvider sourceProvider, ISampleProvider lfo) : base(sourceProvider)
         {
-            _sourceProvider = provider;
             _lfo = lfo;
         }
 
-        public WaveFormat WaveFormat => _sourceProvider.WaveFormat;
-
-        public int Read(float[] buffer, int offset, int count)
+        public override int Read(float[] buffer, int offset, int count)
         {
-            int samplesRead = _sourceProvider.Read(buffer, offset, count);
+            int samplesRead = SourceProvider.Read(buffer, offset, count);
             var lfoBuffer = new float[count];
             _ = _lfo.Read(lfoBuffer, offset, count);
 

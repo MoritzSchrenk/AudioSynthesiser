@@ -2,6 +2,7 @@
 using AudioSynthesiser.Synth;
 using AudioSynthesiser.ViewModel.Commands;
 using NAudio.Wave.SampleProviders;
+using System;
 using System.ComponentModel;
 
 namespace AudioSynthesiser.ViewModel
@@ -11,6 +12,7 @@ namespace AudioSynthesiser.ViewModel
         #region props
 
         public ISynthesiser Synthesiser { get; set; }
+        public ChainingSampleProviderFactory SampleProviderFactory { get; set; }
 
         private float volume;
         public float Volume
@@ -181,6 +183,7 @@ namespace AudioSynthesiser.ViewModel
         {
             Synthesiser = synthesiser;
 
+            SampleProviderFactory = new ChainingSampleProviderFactory();
             PlayCommand = new SynthPlayCommand(this);
             StopCommand = new SynthStopCommand(this);
 
@@ -200,10 +203,6 @@ namespace AudioSynthesiser.ViewModel
             LfoWaveForm = SignalGeneratorType.Sin;
             LfoFreq = 5;
             LfoAmplitude = 0.25;
-
-            UpdateOscillator();
-            UpdateFilter();
-            UpdateLfo();
         }
 
         public SynthesiserViewModel() { }
@@ -216,23 +215,29 @@ namespace AudioSynthesiser.ViewModel
 
         private void UpdateVolume()
         {
-            Synthesiser.Volume = Volume;
-            Synthesiser.Update();
+            SampleProviderFactory.Volume = Volume;
+            UpdateSynth();
         }
 
         private void UpdateOscillator()
         {
-            Synthesiser.Oscillator = new Oscillator(waveForm, baseFreq, gain, oscOn);
-            Synthesiser.Update();
+            SampleProviderFactory.Oscillator = new Oscillator(waveForm, baseFreq, gain, oscOn);
+            UpdateSynth();
         }
         private void UpdateFilter()
         {
-            Synthesiser.Filter = new Filter(filterType, filterFreq, filterQ, filterOn);
-            Synthesiser.Update();
+            SampleProviderFactory.Filter = new Filter(filterType, filterFreq, filterQ, filterOn);
+            UpdateSynth();
         }
         private void UpdateLfo()
         {
-            Synthesiser.Lfo = new Oscillator(lfoWaveForm, lfoFreq, lfoAmplitude, lfoOn);
+            SampleProviderFactory.Lfo = new Oscillator(lfoWaveForm, lfoFreq, lfoAmplitude, lfoOn);
+            UpdateSynth();
+        }
+
+        private void UpdateSynth()
+        {
+            Synthesiser.SetSampleProvider(SampleProviderFactory.Make());
             Synthesiser.Update();
         }
     }
