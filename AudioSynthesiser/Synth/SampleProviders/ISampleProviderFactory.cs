@@ -8,6 +8,7 @@ namespace AudioSynthesiser.Synth.SampleProviders
         Oscillator Oscillator { get; set; }
         Oscillator Lfo { get; set; }
         Filter Filter { get; set; }
+        Adsr Adsr { get; set; }
         float Volume { get; set; }
 
         ISampleProvider BuildSampleProvider();

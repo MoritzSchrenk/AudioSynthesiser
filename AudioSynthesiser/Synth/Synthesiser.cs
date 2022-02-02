@@ -1,11 +1,20 @@
 ﻿using NAudio.Wave;
+using System;
 
 namespace AudioSynthesiser.Synth
 {
     public class Synthesiser : ISynthesiser
     {
         private ISampleProvider _sampleProvider;
-        private WaveOutEvent wo;
+        private readonly WaveOutEvent _waveOut;
+        public bool IsPlaying { get; private set; }
+
+
+        public Synthesiser()
+        {
+            _waveOut = new WaveOutEvent();
+            _waveOut.PlaybackStopped += new EventHandler<StoppedEventArgs>(OnStoppedPlaying);
+        }
 
         public void SetSampleProvider(ISampleProvider sampleProvider)
         {
@@ -20,22 +29,20 @@ namespace AudioSynthesiser.Synth
                 return;
             }
 
-            if (wo == null)
+            if (IsPlaying)
             {
-                wo = new WaveOutEvent();
-            }
-            else
-            {
-                wo.Stop();
+                _waveOut.Stop();
             }
 
-            wo.Init(_sampleProvider);
-            wo.Play();
+            _waveOut.Init(_sampleProvider);
+            _waveOut.Play();
+            PlaybackMediator.OnStartPlaying();
+            IsPlaying = true;
         }
 
         public void Update()
         {
-            if (wo != null)
+            if (IsPlaying)
             {
                 Play();
             }
@@ -43,11 +50,15 @@ namespace AudioSynthesiser.Synth
 
         public void Stop()
         {
-            if (wo != null)
+            if (IsPlaying)
             {
-                wo.Stop();
-                wo = null;
+                PlaybackMediator.OnStopPlaying();
             }
+        }
+
+        private void OnStoppedPlaying(object sender, StoppedEventArgs e)
+        {
+            IsPlaying = false;
         }
     }
 }

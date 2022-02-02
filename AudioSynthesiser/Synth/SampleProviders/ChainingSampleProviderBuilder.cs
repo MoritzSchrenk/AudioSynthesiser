@@ -69,6 +69,23 @@ namespace AudioSynthesiser.Synth.SampleProviders
             return this;
         }
 
+        public ISampleProviderBuilder WithEnvelope(Adsr adsr)
+        {
+            if(adsr == null || !adsr.IsEnabled())
+            {
+                adsr = Adsr.NoEnvelope();
+            }
+
+            if (sampleProvider is null)
+            {
+                throw new NotSupportedException("ADSR Envelope requires a signal generator to be set");
+            }
+
+            sampleProvider = new AdsrEnvelopeProvider(sampleProvider, adsr);
+
+            return this;
+        }
+
         public ISampleProviderBuilder WithVolume(float volume)
         {
             if (sampleProvider is null)

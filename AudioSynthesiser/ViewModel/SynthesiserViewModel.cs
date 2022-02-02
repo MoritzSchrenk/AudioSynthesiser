@@ -3,7 +3,6 @@ using AudioSynthesiser.Synth;
 using AudioSynthesiser.Synth.SampleProviders;
 using AudioSynthesiser.ViewModel.Commands;
 using NAudio.Wave.SampleProviders;
-using System;
 using System.ComponentModel;
 
 namespace AudioSynthesiser.ViewModel
@@ -175,6 +174,67 @@ namespace AudioSynthesiser.ViewModel
             }
         }
 
+        // ADSR Envelope
+
+        private bool adsrOn;
+        public bool AdsrOn
+        {
+            get => adsrOn;
+            set
+            {
+                adsrOn = value;
+                OnPropertyChanged("AdsrOn");
+                UpdateLfo();
+            }
+        }
+
+        private float attack;
+        public float Attack
+        {
+            get => attack;
+            set {
+                attack = value;
+                OnPropertyChanged("Attack");
+                UpdateAdsr();
+            }
+        }
+
+        private float decay;
+        public float Decay
+        {
+            get => decay;
+            set
+            {
+                decay = value;
+                OnPropertyChanged("Decay");
+                UpdateAdsr();
+            }
+        }
+
+        private int sustain;
+        public int Sustain
+        {
+            get => sustain;
+            set
+            {
+                sustain = value;
+                OnPropertyChanged("Sustain");
+                UpdateAdsr();
+            }
+        }
+
+        private float release;
+        public float Release
+        {
+            get => release;
+            set
+            {
+                release = value;
+                OnPropertyChanged("Release");
+                UpdateAdsr();
+            }
+        }
+
         #endregion
 
         public SynthPlayCommand PlayCommand { get; set; }
@@ -188,24 +248,8 @@ namespace AudioSynthesiser.ViewModel
             PlayCommand = new SynthPlayCommand(this);
             StopCommand = new SynthStopCommand(this);
 
-            OscOn = true;
-            WaveForm = SignalGeneratorType.Sin;
-            BaseFreq = 500;
-            Gain = 0.05;
-
-            FilterOn = false;
-            FilterType = FilterType.LowPass;
-            FilterFreq = 250;
-            FilterQ = 1;
-
-            LfoOn = false;
-            LfoWaveForm = SignalGeneratorType.Sin;
-            LfoFreq = 5;
-            LfoAmplitude = 0.25;
-
-            Volume = 1;
+            SetDefaults();
         }
-
         public SynthesiserViewModel() { }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -231,6 +275,12 @@ namespace AudioSynthesiser.ViewModel
             UpdateSynth();
         }
 
+        private void UpdateAdsr()
+        {
+            _synthFactory.Adsr = new Adsr(attack, decay, sustain, release, adsrOn);
+            UpdateSynth();
+        }
+
         private void UpdateVolume()
         {
             _synthFactory.Volume = Volume;
@@ -242,5 +292,32 @@ namespace AudioSynthesiser.ViewModel
             Synthesiser.SetSampleProvider(_synthFactory.BuildSampleProvider());
             Synthesiser.Update();
         }
+        private void SetDefaults()
+        {
+            OscOn = true;
+            WaveForm = SignalGeneratorType.Sin;
+            BaseFreq = 500;
+            Gain = 0.05;
+
+            FilterOn = false;
+            FilterType = FilterType.LowPass;
+            FilterFreq = 250;
+            FilterQ = 1;
+
+            LfoOn = false;
+            LfoWaveForm = SignalGeneratorType.Sin;
+            LfoFreq = 5;
+            LfoAmplitude = 0.25;
+
+            AdsrOn = true;
+            Attack = 1;
+            Decay = 1;
+            Sustain = 50;
+            Release = 1;
+
+            Volume = 1;
+        }
+
+
     }
 }

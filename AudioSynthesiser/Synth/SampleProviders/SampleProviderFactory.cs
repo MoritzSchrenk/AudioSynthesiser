@@ -10,6 +10,7 @@ namespace AudioSynthesiser.Synth.SampleProviders
         public Oscillator Oscillator { get; set; }
         public Oscillator Lfo { get; set; }
         public Filter Filter { get; set; }
+        public Adsr Adsr { get; set; }
         public float Volume { get; set; }
 
 
@@ -23,6 +24,7 @@ namespace AudioSynthesiser.Synth.SampleProviders
                 .WithLfo(Lfo)
                 .WithFilter(Filter)
                 .WithVolume(Volume)
+                .WithEnvelope(Adsr)
                 .GetSampleProvider();
         }
     }
