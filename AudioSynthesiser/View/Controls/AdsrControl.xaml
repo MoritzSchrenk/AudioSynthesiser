@@ -1,0 +1,54 @@
+﻿<UserControl Name="ThisAdsrControl"
+             x:Class="AudioSynthesiser.View.Controls.AdsrControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:uc="clr-namespace:AudioSynthesiser.View.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="400">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+            <CheckBox x:Name="EnabledCheckBox" VerticalAlignment="Center" IsChecked="{Binding ElementName=ThisAdsrControl, Path=Enabled, Mode=TwoWay}"/>
+            <Label Style="{DynamicResource ComponentHeadingStyle}" VerticalAlignment="Center">ADSR</Label>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+            <uc:VerticalSliderControl Label="Attack (s)"
+                                      MinValue="0"
+                                      MaxValue="5"
+                                      Value="{Binding ElementName=ThisAdsrControl, Path=Attack, Mode=TwoWay}"
+                                      Enabled="{Binding ElementName=ThisAdsrControl, Path=Enabled, Mode=TwoWay}"/>
+            <uc:VerticalSliderControl Label="Decay (s)"
+                                      MinValue="0"
+                                      MaxValue="5"
+                                      Value="{Binding ElementName=ThisAdsrControl, Path=Decay, Mode=TwoWay}"
+                                      Enabled="{Binding ElementName=ThisAdsrControl, Path=Enabled, Mode=TwoWay}"/>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label HorizontalAlignment="Center" Style="{DynamicResource SettingHeadingStyle}" Content="Sustain (%)"/>
+                <TextBox x:Name="NumberTextBox" Width="50"
+                     HorizontalAlignment="Center" TextAlignment="Right"
+                     IsEnabled="{Binding ElementName=ThisAdsrControl, Path=Enabled}"
+                     Text="{Binding ElementName=ThisAdsrControl, Path=Sustain, Mode=TwoWay, StringFormat=N0, UpdateSourceTrigger=PropertyChanged}"/>
+                <Slider x:Name="Slider" Height="200" Orientation="Vertical" HorizontalAlignment="Center"
+                    IsMoveToPointEnabled="True"
+                    IsEnabled="{Binding ElementName=ThisAdsrControl, Path=Enabled}"
+                    Minimum="0"
+                    Maximum="100"
+                    Value="{Binding Sustain, ElementName=ThisAdsrControl, Mode=TwoWay}"/>
+            </StackPanel>
+            <uc:VerticalSliderControl Label="Release (s)"
+                                      MinValue="0"
+                                      MaxValue="5"
+                                      Value="{Binding ElementName=ThisAdsrControl, Path=Release, Mode=TwoWay}"
+                                      Enabled="{Binding ElementName=ThisAdsrControl, Path=Enabled, Mode=TwoWay}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

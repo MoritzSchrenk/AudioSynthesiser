@@ -7,6 +7,7 @@
         <SolidColorBrush x:Key="OscBackground" Color="LightBlue"/>
         <SolidColorBrush x:Key="LfoBackground" Color="LightSkyBlue"/>
         <SolidColorBrush x:Key="FilterBackground" Color="LightSteelBlue"/>
+        <SolidColorBrush x:Key="AdsrBackground" Color="LightSlateGray"/>
 
         <Style TargetType="Border" x:Key="BorderBase">
             <Setter Property="BorderBrush" Value="Black"/>
@@ -24,6 +25,10 @@
         <Style TargetType="Border" x:Key="FilterStyle" BasedOn="{StaticResource BorderBase}">
             <Setter Property="Background" Value="{StaticResource FilterBackground}"/>
         </Style>
+        
+        <Style TargetType="Border" x:Key="AdsrStyle" BasedOn="{StaticResource BorderBase}">
+            <Setter Property="Background" Value="{StaticResource AdsrBackground}"/>
+        </Style>        
 
         <Style TargetType="Label" x:Key="ComponentHeadingStyle">
             <Setter Property="FontWeight" Value="Bold"/>

@@ -5,18 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:uc="clr-namespace:AudioSynthesiser.View.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="400">
+        Title="MainWindow" Height="700" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Border Style="{DynamicResource BorderBase}">
+        <Border Style="{DynamicResource BorderBase}" Grid.ColumnSpan="2">
             <StackPanel Grid.Row="0" Orientation="Horizontal" Background="LightGray">
                 <Button Command="{Binding PlayCommand}" CommandParameter="{Binding OscOn}">
                     <Viewbox Width="48" Height="48">
@@ -52,12 +52,20 @@
                               Enabled="{Binding LfoOn, Mode=TwoWay}"
                               MaxFrequency="5"/>
         </Border>
-        <Border Grid.Row="3" Style="{DynamicResource FilterStyle}">
+        <Border Grid.Row="1" Grid.Column="1" Style="{DynamicResource FilterStyle}">
             <uc:FilterControl Margin="10,5"
                           CutoffFreq="{Binding FilterFreq, Mode=TwoWay}"
                           QValue="{Binding FilterQ, Mode=TwoWay}"
                           Type="{Binding FilterType, Mode=TwoWay}"
                           Enabled="{Binding FilterOn, Mode=TwoWay}"/>
+        </Border>
+        <Border Grid.Row="2" Grid.Column="1" Style="{DynamicResource AdsrStyle}">
+            <uc:AdsrControl Margin="10,5"
+                            Attack="{Binding Attack, Mode=TwoWay}"
+                            Decay="{Binding Decay, Mode=TwoWay}"
+                            Sustain="{Binding Sustain, Mode=TwoWay}"
+                            Release="{Binding Release, Mode=TwoWay}"
+                            Enabled="{Binding AdsrOn, Mode=TwoWay}"/>
         </Border>
     </Grid>
 </Window>

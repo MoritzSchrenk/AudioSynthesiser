@@ -309,7 +309,7 @@ namespace AudioSynthesiser.ViewModel
             LfoFreq = 5;
             LfoAmplitude = 0.25;
 
-            AdsrOn = true;
+            AdsrOn = false;
             Attack = 1;
             Decay = 1;
             Sustain = 50;
