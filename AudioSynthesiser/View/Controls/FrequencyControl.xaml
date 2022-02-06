@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:cnv="clr-namespace:AudioSynthesiser.ViewModel.Converters"
+             xmlns:vm="clr-namespace:AudioSynthesiser.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="300">
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -15,13 +16,14 @@
         <StackPanel Orientation="Horizontal">
             <TextBox x:Name="FreqTextBox"  Width="100"
                     IsEnabled="{Binding ElementName=ThisFrequencyControl, Path=Enabled}"
-                    Text="{Binding ElementName=ThisFrequencyControl, Path=Frequency, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{Binding ElementName=ThisFrequencyControl, Path=Frequency, Mode=TwoWay}"
+                     vm:InputBindingsManager.UpdatePropertySourceWhenEnterPressed="TextBox.Text"
                     HorizontalAlignment="Left" TextAlignment="Right"/>
             <Label>Hz</Label>
         </StackPanel>
-        <Slider x:Name="FreqSlider"  Width="200" HorizontalAlignment="Left" Margin="0,5"
-                Minimum="1" IsMoveToPointEnabled="True"
-                Maximum="{Binding ElementName=ThisFrequencyControl, Path=MaxValue, Mode=TwoWay}"
+        <Slider x:Name="FreqSlider"  Width="200" HorizontalAlignment="Left" Margin="0,5" IsMoveToPointEnabled="True"
+                Minimum="{Binding ElementName=ThisFrequencyControl, Path=MinValue, Converter={StaticResource QuadraticNumberConverter}}"
+                Maximum="{Binding ElementName=ThisFrequencyControl, Path=MaxValue, Converter={StaticResource QuadraticNumberConverter}}"
                 IsEnabled="{Binding ElementName=ThisFrequencyControl, Path=Enabled}"
                 Value="{Binding ElementName=ThisFrequencyControl, Path=Frequency, Mode=TwoWay, Converter={StaticResource QuadraticNumberConverter}}"/>
     </StackPanel>

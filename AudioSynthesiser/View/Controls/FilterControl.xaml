@@ -22,7 +22,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-            <CheckBox x:Name="EnabledCheckBox" VerticalAlignment="Center" IsChecked="{Binding ElementName=ThisFilterControl, Path=Enabled, Mode=TwoWay}"/>
+            <CheckBox x:Name="EnabledCheckBox" VerticalAlignment="Center" IsChecked="{Binding ElementName=ThisFilterControl, Path=Enabled}"/>
             <Label Style="{DynamicResource ComponentHeadingStyle}" VerticalAlignment="Center">Filter</Label>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="0"  Margin="30,0,0,0">
@@ -33,11 +33,12 @@
             <RadioButton IsEnabled="{Binding ElementName=ThisFilterControl, Path=Enabled}" Content="Notch" IsChecked="{Binding ElementName=ThisFilterControl, Path=Type, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static mdl:FilterType.Notch}}"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top">
-            <uc:FrequencyControl MaxValue="140"
+            <uc:FrequencyControl MinValue="20"
+                                 MaxValue="20000"
                                  Enabled="{Binding ElementName=ThisFilterControl, Path=Enabled}"
                                  Frequency="{Binding ElementName=ThisFilterControl, Path=CutoffFreq, Mode=TwoWay}"/>
             <uc:NumberSliderControl HorizontalAlignment="Left"
-                                    Label="Q" MinValue="0.5" MaxValue="15"
+                                    Label="Resonance" MinValue="0.5" MaxValue="15"
                                     Enabled="{Binding ElementName=ThisFilterControl, Path=Enabled}"
                                     Value="{Binding ElementName=ThisFilterControl, Path=QValue, Mode=TwoWay}"/>
         </StackPanel>

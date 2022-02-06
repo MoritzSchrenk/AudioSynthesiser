@@ -42,6 +42,9 @@
     <Page Update="View\Controls\OscillatorControl.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\Controls\SustainControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\Controls\VerticalSliderControl.xaml">
       <SubType>Designer</SubType>
     </Page>

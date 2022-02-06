@@ -42,7 +42,8 @@
                                   WaveForm="{Binding WaveForm, Mode=TwoWay}"
                                   Amplitude="{Binding Gain, Mode=TwoWay}"
                                   Enabled="{Binding OscOn, Mode=TwoWay}"
-                                  MaxFrequency="140"/>
+                                  MinFrequency="20"
+                                  MaxFrequency="20000"/>
         </Border>
         <Border Grid.Row="2" Style="{DynamicResource LfoStyle}">
             <uc:OscillatorControl Label="LFO" Margin="10,5"
@@ -50,7 +51,8 @@
                               WaveForm="{Binding LfoWaveForm, Mode=TwoWay}"
                               Amplitude="{Binding LfoAmplitude, Mode=TwoWay}"
                               Enabled="{Binding LfoOn, Mode=TwoWay}"
-                              MaxFrequency="5"/>
+                              MinFrequency="1"
+                              MaxFrequency="100"/>
         </Border>
         <Border Grid.Row="1" Grid.Column="1" Style="{DynamicResource FilterStyle}">
             <uc:FilterControl Margin="10,5"

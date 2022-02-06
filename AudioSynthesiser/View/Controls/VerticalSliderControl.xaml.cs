@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AudioSynthesiser.View.Controls
 {
@@ -46,7 +36,22 @@ namespace AudioSynthesiser.View.Controls
 
         // Using a DependencyProperty as the backing store for Value.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(float), typeof(VerticalSliderControl), new PropertyMetadata(0.3f));
+            DependencyProperty.Register("Value", typeof(float), typeof(VerticalSliderControl), new PropertyMetadata(0.3f, ValueChanged));
+
+        private static void ValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is VerticalSliderControl control)
+            {
+                if ((float)e.NewValue >= control.MaxValue)
+                {
+                    control.Value = control.MaxValue;
+                }
+                else if ((float)e.NewValue <= control.MinValue)
+                {
+                    control.Value = control.MinValue;
+                }
+            }
+        }
 
         public float MinValue
         {
@@ -67,8 +72,6 @@ namespace AudioSynthesiser.View.Controls
         // Using a DependencyProperty as the backing store for MaxValue.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MaxValueProperty =
             DependencyProperty.Register("MaxValue", typeof(float), typeof(VerticalSliderControl), new PropertyMetadata(5f));
-
-
 
         public VerticalSliderControl()
         {

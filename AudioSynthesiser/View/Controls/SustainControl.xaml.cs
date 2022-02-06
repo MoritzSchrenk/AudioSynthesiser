@@ -1,13 +1,12 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace AudioSynthesiser.View.Controls
 {
     /// <summary>
-    /// Interaction logic for NumberSliderControl.xaml
+    /// Interaction logic for VerticalSliderControl.xaml
     /// </summary>
-    public partial class NumberSliderControl : UserControl
+    public partial class SustainControl : UserControl
     {
         public bool Enabled
         {
@@ -17,7 +16,7 @@ namespace AudioSynthesiser.View.Controls
 
         // Using a DependencyProperty as the backing store for Enabled.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty EnabledProperty =
-            DependencyProperty.Register("Enabled", typeof(bool), typeof(NumberSliderControl), new PropertyMetadata(false));
+            DependencyProperty.Register("Enabled", typeof(bool), typeof(SustainControl), new PropertyMetadata(false));
 
         public string Label
         {
@@ -27,52 +26,56 @@ namespace AudioSynthesiser.View.Controls
 
         // Using a DependencyProperty as the backing store for Label.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LabelProperty =
-            DependencyProperty.Register("Label", typeof(string), typeof(NumberSliderControl), new PropertyMetadata(""));
+            DependencyProperty.Register("Label", typeof(string), typeof(SustainControl), new PropertyMetadata(""));
 
-        public float Value
+        public int Value
         {
-            get => (float)GetValue(ValueProperty);
+            get => (int)GetValue(ValueProperty);
             set => SetValue(ValueProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for Value.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(float), typeof(NumberSliderControl), new PropertyMetadata(1f, ValueChanged));
+            DependencyProperty.Register("Value", typeof(int), typeof(SustainControl), new PropertyMetadata(100, ValueChanged));
 
         private static void ValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is NumberSliderControl control) {
-                if ((float)e.NewValue >= control.MaxValue)
+            if (d is VerticalSliderControl control)
+            {
+                if ((int)e.NewValue >= control.MaxValue)
                 {
                     control.Value = control.MaxValue;
-                } else if ((float)e.NewValue <= control.MinValue)
+                }
+                else if ((int)e.NewValue <= control.MinValue)
                 {
                     control.Value = control.MinValue;
                 }
             }
         }
 
-        public float MinValue
+        public int MinValue
         {
-            get => (float)GetValue(MinValueProperty);
-            set => SetValue(MinValueProperty, value);
+            get { return (int)GetValue(MinValueProperty); }
+            set { SetValue(MinValueProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for MinValue.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MinValueProperty =
-            DependencyProperty.Register("MinValue", typeof(float), typeof(NumberSliderControl), new PropertyMetadata(0f));
+            DependencyProperty.Register("MinValue", typeof(int), typeof(SustainControl), new PropertyMetadata(0));
 
-        public float MaxValue
+        public int MaxValue
         {
-            get => (float)GetValue(MaxValueProperty);
-            set => SetValue(MaxValueProperty, value);
+            get { return (int)GetValue(MaxValueProperty); }
+            set { SetValue(MaxValueProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for MaxValue.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MaxValueProperty =
-            DependencyProperty.Register("MaxValue", typeof(float), typeof(NumberSliderControl), new PropertyMetadata(1f));
+            DependencyProperty.Register("MaxValue", typeof(int), typeof(SustainControl), new PropertyMetadata(100));
 
-        public NumberSliderControl()
+
+
+        public SustainControl()
         {
             InitializeComponent();
         }

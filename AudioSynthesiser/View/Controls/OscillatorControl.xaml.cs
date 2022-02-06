@@ -30,6 +30,17 @@ namespace AudioSynthesiser.View.Controls
         public static readonly DependencyProperty LabelProperty =
             DependencyProperty.Register("Label", typeof(string), typeof(OscillatorControl), new PropertyMetadata(""));
 
+        public int MinFrequency
+        {
+            get => (int)GetValue(MinFrequencyProperty);
+            set => SetValue(MinFrequencyProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for MinFrequency.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MinFrequencyProperty =
+            DependencyProperty.Register("MinFrequency", typeof(int), typeof(OscillatorControl), new PropertyMetadata(1));
+
+
         public int MaxFrequency
         {
             get => (int)GetValue(MaxFrequencyProperty);

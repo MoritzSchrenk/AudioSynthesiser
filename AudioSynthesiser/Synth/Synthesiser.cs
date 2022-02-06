@@ -7,13 +7,16 @@ namespace AudioSynthesiser.Synth
     {
         private ISampleProvider _sampleProvider;
         private readonly WaveOutEvent _waveOut;
-        public bool IsPlaying { get; private set; }
+        private bool _isPlaying;
+
+        private bool _stopped;
 
 
         public Synthesiser()
         {
             _waveOut = new WaveOutEvent();
             _waveOut.PlaybackStopped += new EventHandler<StoppedEventArgs>(OnStoppedPlaying);
+            _stopped = true;
         }
 
         public void SetSampleProvider(ISampleProvider sampleProvider)
@@ -23,13 +26,13 @@ namespace AudioSynthesiser.Synth
 
         public void Play()
         {
-            if(_sampleProvider == null)
+            if (_sampleProvider == null)
             {
                 Stop();
                 return;
             }
 
-            if (IsPlaying)
+            if (_isPlaying)
             {
                 _waveOut.Stop();
             }
@@ -37,12 +40,13 @@ namespace AudioSynthesiser.Synth
             _waveOut.Init(_sampleProvider);
             _waveOut.Play();
             PlaybackMediator.OnStartPlaying();
-            IsPlaying = true;
+            _isPlaying = true;
+            _stopped = false;
         }
 
         public void Update()
         {
-            if (IsPlaying)
+            if (!_stopped)
             {
                 Play();
             }
@@ -50,15 +54,16 @@ namespace AudioSynthesiser.Synth
 
         public void Stop()
         {
-            if (IsPlaying)
+            if (!_stopped)
             {
+                _stopped = true;
                 PlaybackMediator.OnStopPlaying();
             }
         }
 
         private void OnStoppedPlaying(object sender, StoppedEventArgs e)
         {
-            IsPlaying = false;
+            _isPlaying = false;
         }
     }
 }

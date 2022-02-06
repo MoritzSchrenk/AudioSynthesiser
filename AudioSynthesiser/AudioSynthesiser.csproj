@@ -16,4 +16,17 @@
     <PackageReference Include="Unity" Version="5.11.10" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="View\Controls\SustainControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="View\Controls\SustainControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>

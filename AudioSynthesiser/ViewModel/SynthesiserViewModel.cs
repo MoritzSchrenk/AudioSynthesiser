@@ -184,7 +184,7 @@ namespace AudioSynthesiser.ViewModel
             {
                 adsrOn = value;
                 OnPropertyChanged("AdsrOn");
-                UpdateLfo();
+                UpdateAdsr();
             }
         }
 

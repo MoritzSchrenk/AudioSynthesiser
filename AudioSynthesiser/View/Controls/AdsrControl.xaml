@@ -17,38 +17,30 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-            <CheckBox x:Name="EnabledCheckBox" VerticalAlignment="Center" IsChecked="{Binding ElementName=ThisAdsrControl, Path=Enabled, Mode=TwoWay}"/>
+            <CheckBox x:Name="EnabledCheckBox" VerticalAlignment="Center" IsChecked="{Binding ElementName=ThisAdsrControl, Path=Enabled}"/>
             <Label Style="{DynamicResource ComponentHeadingStyle}" VerticalAlignment="Center">ADSR</Label>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center">
             <uc:VerticalSliderControl Label="Attack (s)"
                                       MinValue="0"
                                       MaxValue="5"
-                                      Value="{Binding ElementName=ThisAdsrControl, Path=Attack, Mode=TwoWay}"
-                                      Enabled="{Binding ElementName=ThisAdsrControl, Path=Enabled, Mode=TwoWay}"/>
+                                      Value="{Binding ElementName=ThisAdsrControl, Path=Attack, Mode=OneWayToSource}"
+                                      Enabled="{Binding ElementName=ThisAdsrControl, Path=Enabled}"/>
             <uc:VerticalSliderControl Label="Decay (s)"
                                       MinValue="0"
                                       MaxValue="5"
-                                      Value="{Binding ElementName=ThisAdsrControl, Path=Decay, Mode=TwoWay}"
-                                      Enabled="{Binding ElementName=ThisAdsrControl, Path=Enabled, Mode=TwoWay}"/>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Label HorizontalAlignment="Center" Style="{DynamicResource SettingHeadingStyle}" Content="Sustain (%)"/>
-                <TextBox x:Name="NumberTextBox" Width="50"
-                     HorizontalAlignment="Center" TextAlignment="Right"
-                     IsEnabled="{Binding ElementName=ThisAdsrControl, Path=Enabled}"
-                     Text="{Binding ElementName=ThisAdsrControl, Path=Sustain, Mode=TwoWay, StringFormat=N0, UpdateSourceTrigger=PropertyChanged}"/>
-                <Slider x:Name="Slider" Height="200" Orientation="Vertical" HorizontalAlignment="Center"
-                    IsMoveToPointEnabled="True"
-                    IsEnabled="{Binding ElementName=ThisAdsrControl, Path=Enabled}"
-                    Minimum="0"
-                    Maximum="100"
-                    Value="{Binding Sustain, ElementName=ThisAdsrControl, Mode=TwoWay}"/>
-            </StackPanel>
+                                      Value="{Binding ElementName=ThisAdsrControl, Path=Decay, Mode=OneWayToSource}"
+                                      Enabled="{Binding ElementName=ThisAdsrControl, Path=Enabled}"/>
+            <uc:SustainControl Label ="Sustain (%)"
+                               MinValue="0"
+                               MaxValue="100"
+                               Value="{Binding ElementName=ThisAdsrControl, Path=Sustain, Mode=OneWayToSource}"
+                               Enabled="{Binding ElementName=ThisAdsrControl, Path=Enabled}"/>
             <uc:VerticalSliderControl Label="Release (s)"
                                       MinValue="0"
                                       MaxValue="5"
-                                      Value="{Binding ElementName=ThisAdsrControl, Path=Release, Mode=TwoWay}"
-                                      Enabled="{Binding ElementName=ThisAdsrControl, Path=Enabled, Mode=TwoWay}"/>
+                                      Value="{Binding ElementName=ThisAdsrControl, Path=Release, Mode=OneWayToSource}"
+                                      Enabled="{Binding ElementName=ThisAdsrControl, Path=Enabled}"/>
         </StackPanel>
     </Grid>
 </UserControl>
