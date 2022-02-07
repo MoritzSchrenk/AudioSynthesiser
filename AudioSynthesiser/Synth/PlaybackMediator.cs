@@ -2,6 +2,9 @@
 
 namespace AudioSynthesiser.Synth
 {
+    /// <summary>
+    /// Sends global start/stop playing events
+    /// </summary>
     public static class PlaybackMediator
     {
         public static event Action StopPlaying;

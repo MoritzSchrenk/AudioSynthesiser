@@ -24,6 +24,7 @@ namespace AudioSynthesiserTests
             mockSampleProviderBuilder.Setup(x => x.WithLfo(It.IsAny<Oscillator>())).Returns(mockSampleProviderBuilder.Object);
             mockSampleProviderBuilder.Setup(x => x.WithFilter(It.IsAny<Filter>())).Returns(mockSampleProviderBuilder.Object);
             mockSampleProviderBuilder.Setup(x => x.WithVolume(It.IsAny<float>())).Returns(mockSampleProviderBuilder.Object);
+            mockSampleProviderBuilder.Setup(x => x.WithEnvelope(It.IsAny<Adsr>())).Returns(mockSampleProviderBuilder.Object);
             mockSampleProviderBuilder.Setup(x => x.GetSampleProvider()).Returns(volume);
 
             var factory = new SampleProviderFactory(mockSampleProviderBuilder.Object);

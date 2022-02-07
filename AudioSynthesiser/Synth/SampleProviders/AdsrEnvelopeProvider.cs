@@ -4,6 +4,9 @@ using NAudio.Wave;
 
 namespace AudioSynthesiser.Synth.SampleProviders
 {
+    /// <summary>
+    /// Wraps a sample provider in an ADSR envelope
+    /// </summary>
     public class AdsrEnvelopeProvider : AbstractSampleProviderDecorator
     {
         private readonly EnvelopeGenerator _envelope;

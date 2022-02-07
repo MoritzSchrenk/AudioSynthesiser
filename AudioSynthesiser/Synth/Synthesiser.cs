@@ -8,7 +8,6 @@ namespace AudioSynthesiser.Synth
         private ISampleProvider _sampleProvider;
         private readonly WaveOutEvent _waveOut;
         private bool _isPlaying;
-
         private bool _stopped;
 
 

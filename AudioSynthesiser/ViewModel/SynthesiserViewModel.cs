@@ -11,9 +11,7 @@ namespace AudioSynthesiser.ViewModel
     {
         #region props
 
-        private readonly ISampleProviderFactory _synthFactory;
-        public ISynthesiser Synthesiser { get; set; }
-
+        // Volume
         private float volume;
         public float Volume
         {
@@ -236,6 +234,9 @@ namespace AudioSynthesiser.ViewModel
         }
 
         #endregion
+
+        private readonly ISampleProviderFactory _synthFactory;
+        public ISynthesiser Synthesiser { get; set; }
 
         public SynthPlayCommand PlayCommand { get; set; }
         public SynthStopCommand StopCommand { get; set; }

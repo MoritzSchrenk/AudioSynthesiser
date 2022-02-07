@@ -2,6 +2,9 @@
 
 namespace AudioSynthesiser.Synth.SampleProviders
 {
+    /// <summary>
+    /// Abstract class for ISampleProviders that decorate another ISampleProvider
+    /// </summary>
     public abstract class AbstractSampleProviderDecorator : ISampleProvider
     {
         protected ISampleProvider SourceProvider { get; }

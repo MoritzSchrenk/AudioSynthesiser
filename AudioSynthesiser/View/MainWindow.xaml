@@ -17,7 +17,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Border Style="{DynamicResource BorderBase}" Grid.ColumnSpan="2">
-            <StackPanel Grid.Row="0" Orientation="Horizontal" Background="LightGray">
+            <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" Background="LightGray">
                 <Button Command="{Binding PlayCommand}" CommandParameter="{Binding OscOn}">
                     <Viewbox Width="48" Height="48">
                         <Canvas Width="24" Height="24">

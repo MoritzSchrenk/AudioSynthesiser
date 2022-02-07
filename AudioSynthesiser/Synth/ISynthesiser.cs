@@ -2,6 +2,9 @@
 
 namespace AudioSynthesiser.Synth
 {
+    /// <summary>
+    /// Plays the sound from a sample provider
+    /// </summary>
     public interface ISynthesiser
     {
         void SetSampleProvider(ISampleProvider sampleProvider);

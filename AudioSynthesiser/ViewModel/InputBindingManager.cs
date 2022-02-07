@@ -4,6 +4,10 @@ using System.Windows.Input;
 
 namespace AudioSynthesiser.ViewModel
 {
+    /// <summary>
+    /// Attached behaviours for key presses
+    /// </summary>
+    /// <remarks>Taken from https://stackoverflow.com/a/564659 </remarks>
     public static class InputBindingsManager
     {
 

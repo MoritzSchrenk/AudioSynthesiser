@@ -3,6 +3,9 @@ using System.Windows.Input;
 
 namespace AudioSynthesiser.ViewModel.Commands
 {
+    /// <summary>
+    /// Command to stop playing a sound
+    /// </summary>
     public class SynthStopCommand : ICommand
     {
         public event EventHandler CanExecuteChanged

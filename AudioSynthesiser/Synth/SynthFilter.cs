@@ -4,6 +4,9 @@ using NAudio.Wave;
 
 namespace AudioSynthesiser.Synth
 {
+    /// <summary>
+    /// a BiQuad filter
+    /// </summary>
     public class SynthFilter : IFilter
     {
         private readonly BiQuadFilter _filter;

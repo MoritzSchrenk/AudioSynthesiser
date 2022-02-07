@@ -3,6 +3,9 @@ using System.Windows.Input;
 
 namespace AudioSynthesiser.ViewModel.Commands
 {
+    /// <summary>
+    /// Command to play sound
+    /// </summary>
     public class SynthPlayCommand : ICommand
     {
         public event EventHandler CanExecuteChanged

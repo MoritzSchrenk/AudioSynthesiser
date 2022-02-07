@@ -38,7 +38,7 @@
                                  Enabled="{Binding ElementName=ThisFilterControl, Path=Enabled}"
                                  Frequency="{Binding ElementName=ThisFilterControl, Path=CutoffFreq, Mode=TwoWay}"/>
             <uc:NumberSliderControl HorizontalAlignment="Left"
-                                    Label="Resonance" MinValue="0.5" MaxValue="15"
+                                    Label="Q" MinValue="0.5" MaxValue="15"
                                     Enabled="{Binding ElementName=ThisFilterControl, Path=Enabled}"
                                     Value="{Binding ElementName=ThisFilterControl, Path=QValue, Mode=TwoWay}"/>
         </StackPanel>

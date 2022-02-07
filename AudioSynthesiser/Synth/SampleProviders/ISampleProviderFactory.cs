@@ -3,6 +3,9 @@ using NAudio.Wave;
 
 namespace AudioSynthesiser.Synth.SampleProviders
 {
+    /// <summary>
+    /// Gets a sample provider based on configured components
+    /// </summary>
     public interface ISampleProviderFactory
     {
         Oscillator Oscillator { get; set; }

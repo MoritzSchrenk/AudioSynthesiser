@@ -2,6 +2,9 @@
 
 namespace AudioSynthesiser.Synth.SampleProviders
 {
+    /// <summary>
+    /// Wraps a sample provider in an amplitude LFO (tremolo)
+    /// </summary>
     public class LfoProvider : AbstractSampleProviderDecorator
     {
         private readonly ISampleProvider _lfo;

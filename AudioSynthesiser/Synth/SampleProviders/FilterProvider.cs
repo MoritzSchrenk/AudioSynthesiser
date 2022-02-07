@@ -2,13 +2,16 @@
 
 namespace AudioSynthesiser.Synth.SampleProviders
 {
+    /// <summary>
+    /// Wraps a sample provider in a filter
+    /// </summary>
     public class FilterProvider : AbstractSampleProviderDecorator
     {
-        private readonly IFilter filter;
+        private readonly IFilter _filter;
 
         public FilterProvider(ISampleProvider sourceProvider, IFilter filter) : base(sourceProvider)
         {
-            this.filter = filter;
+            this._filter = filter;
         }
 
         public override int Read(float[] buffer, int offset, int count)
@@ -17,7 +20,7 @@ namespace AudioSynthesiser.Synth.SampleProviders
 
             for (int n = 0; n < samplesRead; n++)
             {
-                buffer[offset + n] = filter.Transform(buffer[offset + n]);
+                buffer[offset + n] = _filter.Transform(buffer[offset + n]);
             }
 
             return samplesRead;

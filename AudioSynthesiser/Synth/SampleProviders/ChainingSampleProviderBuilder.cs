@@ -5,25 +5,28 @@ using System;
 
 namespace AudioSynthesiser.Synth.SampleProviders
 {
+    /// <summary>
+    /// Chains components together into a sample provider
+    /// </summary>
     public class ChainingSampleProviderBuilder : ISampleProviderBuilder
     {
-        private ISampleProvider sampleProvider;
+        private ISampleProvider _sampleProvider;
 
         public ISampleProvider GetSampleProvider()
         {
-            if (sampleProvider == null)
+            if (_sampleProvider == null)
             {
                 return null;
             }
 
-            return sampleProvider;
+            return _sampleProvider;
         }
 
         public ISampleProviderBuilder WithSignalGenerator(Oscillator oscillator)
         {
             if (oscillator != null && oscillator.IsEnabled())
             {
-                sampleProvider = new SignalGenerator()
+                _sampleProvider = new SignalGenerator()
                 {
                     Gain = oscillator.Gain,
                     Frequency = oscillator.Frequency,
@@ -37,7 +40,7 @@ namespace AudioSynthesiser.Synth.SampleProviders
         {
             if (lfo != null && lfo.IsEnabled())
             {
-                if (sampleProvider is null)
+                if (_sampleProvider is null)
                 {
                     throw new NotSupportedException("Lfo requires a signal generator to be set");
                 }
@@ -49,7 +52,7 @@ namespace AudioSynthesiser.Synth.SampleProviders
                     Type = lfo.Type
                 };
 
-                sampleProvider = new LfoProvider(sampleProvider, lfoGenerator);
+                _sampleProvider = new LfoProvider(_sampleProvider, lfoGenerator);
             }
             return this;
         }
@@ -58,13 +61,13 @@ namespace AudioSynthesiser.Synth.SampleProviders
         {
             if (filter != null && filter.IsEnabled())
             {
-                if (sampleProvider is null)
+                if (_sampleProvider is null)
                 {
                     throw new NotSupportedException("Filter requires a signal generator to be set");
                 }
 
-                var filterGenerator = new SynthFilter(filter, sampleProvider);
-                sampleProvider = new FilterProvider(sampleProvider, filterGenerator);
+                var filterGenerator = new SynthFilter(filter, _sampleProvider);
+                _sampleProvider = new FilterProvider(_sampleProvider, filterGenerator);
             }
             return this;
         }
@@ -76,24 +79,24 @@ namespace AudioSynthesiser.Synth.SampleProviders
                 adsr = Adsr.NoEnvelope();
             }
 
-            if (sampleProvider is null)
+            if (_sampleProvider is null)
             {
                 throw new NotSupportedException("ADSR Envelope requires a signal generator to be set");
             }
 
-            sampleProvider = new AdsrEnvelopeProvider(sampleProvider, adsr);
+            _sampleProvider = new AdsrEnvelopeProvider(_sampleProvider, adsr);
 
             return this;
         }
 
         public ISampleProviderBuilder WithVolume(float volume)
         {
-            if (sampleProvider is null)
+            if (_sampleProvider is null)
             {
                 throw new NotSupportedException("Volume requires a signal generator to be set");
             }
 
-            sampleProvider = new VolumeSampleProvider(sampleProvider)
+            _sampleProvider = new VolumeSampleProvider(_sampleProvider)
             {
                 Volume = volume
             };
